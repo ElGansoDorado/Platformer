@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class Player : MonoBehaviour
     SpriteRenderer sr;
     [SerializeField] private float speed;
     [SerializeField] private float jumpHeight;
+    [SerializeField] private Transform groundCheck;
+    private bool isCollider;
 
     void Start()
     {
@@ -22,7 +25,7 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
 
-        if (Input.GetButton("Jump"))
+        if (isCollider && Input.GetButton("Jump"))
         {
             Jump();
         }
@@ -30,7 +33,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Flip();   
+        Flip();
+        CheckGround();
     }
 
     private void Jump() => rb.AddForce(transform.up * jumpHeight, ForceMode2D.Impulse);
@@ -45,5 +49,11 @@ public class Player : MonoBehaviour
         {
             sr.flipX = true;
         }
+    }
+
+    private void CheckGround()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f);
+        isCollider = colliders.Length > 1;
     }
 }
