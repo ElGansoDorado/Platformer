@@ -7,6 +7,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    enum State
+    {
+        Idle = 1,
+        Walk = 2,
+        Jump = 3,
+    }
+
     Rigidbody2D rb;
     SpriteRenderer sr;
     Animator anim;
@@ -28,7 +35,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetAxis("Horizontal") == 0)
         {
-            anim.SetInteger("State", 1);
+            anim.SetInteger("State",(int) State.Idle);
         }
         if (Input.GetButton("Horizontal"))
         {
@@ -52,7 +59,7 @@ public class Player : MonoBehaviour
 
         if (isCollider)
         {
-            anim.SetInteger("State", 2);
+            anim.SetInteger("State",(int) State.Walk);
         }
     }
 
@@ -60,7 +67,7 @@ public class Player : MonoBehaviour
     {
         rb.AddForce(transform.up * jumpHeight, ForceMode2D.Impulse);
 
-        anim.SetInteger("State", 3);
+        anim.SetInteger("State",(int) State.Jump);
     }
 
     private void Flip()
@@ -80,8 +87,4 @@ public class Player : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f);
         isCollider = colliders.Length > 1;
     }
-}
-
-Enum State{
-    
 }
