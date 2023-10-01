@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpHeight;
     [SerializeField] private Transform groundCheck;
-    private bool isCollider;
+    private bool isGround;
 
     void Start()
     {
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         {
             Run();
         }
-        if (isCollider && Input.GetButton("Jump"))
+        if (isGround && Input.GetButton("Jump"))
         {
             Jump();
         }
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
 
-        if (isCollider)
+        if (isGround)
         {
             anim.SetInteger("State",(int) State.Walk);
         }
@@ -85,6 +85,6 @@ public class Player : MonoBehaviour
     private void CheckGround()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f);
-        isCollider = colliders.Length > 1;
+        isGround = colliders.Length > 1;
     }
 }
