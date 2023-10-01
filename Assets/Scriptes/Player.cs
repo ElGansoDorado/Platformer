@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 {
     Rigidbody2D rb;
     SpriteRenderer sr;
+    Animator anim;
+
     [SerializeField] private float speed;
     [SerializeField] private float jumpHeight;
     [SerializeField] private Transform groundCheck;
@@ -18,13 +20,20 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
 
     void FixedUpdate() 
     {
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
-
+        if (Input.GetAxis("Horizontal") == 0)
+        {
+            anim.SetInteger("State", 1);
+        }
+        if (Input.GetButton("Horizontal"))
+        {
+            Run();
+        }
         if (isCollider && Input.GetButton("Jump"))
         {
             Jump();
@@ -37,7 +46,22 @@ public class Player : MonoBehaviour
         CheckGround();
     }
 
-    private void Jump() => rb.AddForce(transform.up * jumpHeight, ForceMode2D.Impulse);
+    private void Run()
+    {
+        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
+
+        if (isCollider)
+        {
+            anim.SetInteger("State", 2);
+        }
+    }
+
+    private void Jump()
+    {
+        rb.AddForce(transform.up * jumpHeight, ForceMode2D.Impulse);
+
+        anim.SetInteger("State", 3);
+    }
 
     private void Flip()
     {
@@ -56,4 +80,8 @@ public class Player : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f);
         isCollider = colliders.Length > 1;
     }
+}
+
+Enum State{
+    
 }
