@@ -23,8 +23,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     private bool isGround;
 
-    private int curHp;
-    private int maxHp;
+    private int curHp = 3;
+    private int maxHp = 3;
+    private bool isHit = false;
 
     void Start()
     {
@@ -94,5 +95,44 @@ public class Player : MonoBehaviour
     public void RecountHp(int deltaHp)
     {
         curHp = curHp + deltaHp;
+
+        if (deltaHp < 0)
+        {
+            StopCoroutine(OnHit());
+
+            isHit = true;
+            
+            StartCoroutine(OnHit());
+        }
+
+        if (curHp <= 0)
+        {
+            GetComponent<CapsuleCollider2D>().enabled = false;
+        }
+    }
+
+    IEnumerator OnHit()
+    {
+        if (isHit)
+        {
+            sr.color = new Color(1f, sr.color.g - 0.04f, sr.color.b - 0.04f);
+        }
+        else
+        {
+            sr.color = new Color(1f, sr.color.g + 0.04f, sr.color.b + 0.04f);
+        }
+
+        if (sr.color.g == 1f)
+        {
+            StopCoroutine(OnHit());
+        }
+
+        if (sr.color.g <= 0)
+        {
+            isHit = false;
+        }
+
+        yield return new WaitForSeconds(0.02f);
+        StartCoroutine(OnHit());
     }
 }
