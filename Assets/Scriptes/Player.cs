@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpHeight;
+    [SerializeField] private Main main;
     [SerializeField] private Transform groundCheck;
     private bool isGround;
 
@@ -101,13 +102,14 @@ public class Player : MonoBehaviour
             StopCoroutine(OnHit());
 
             isHit = true;
-            
+
             StartCoroutine(OnHit());
         }
 
         if (curHp <= 0)
         {
             GetComponent<CapsuleCollider2D>().enabled = false;
+            Invoke("Lose", 1.5f);
         }
     }
 
@@ -134,5 +136,10 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(0.02f);
         StartCoroutine(OnHit());
+    }
+
+    private void Lose()
+    {
+        main.GetComponent<Main>().Lose();
     }
 }
