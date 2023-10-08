@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     private bool isGround;
 
+    private int curHp;
+    private int maxHp;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -86,5 +89,10 @@ public class Player : MonoBehaviour
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f);
         isGround = colliders.Length > 1;
+    }
+
+    public void RecountHp(int deltaHp)
+    {
+        curHp = curHp + deltaHp;
     }
 }
