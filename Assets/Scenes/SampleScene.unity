@@ -1078,7 +1078,7 @@ MonoBehaviour:
   speed: 1.5
   point1: {fileID: 1722314474}
   point2: {fileID: 1111445023}
-  bullet: {fileID: 3404485737649257638, guid: 5acb419ef648ae048b3362e31447e185, type: 3}
+  prefabBullet: {fileID: 3404485737649257638, guid: 5acb419ef648ae048b3362e31447e185, type: 3}
   timeShoot: 4
 --- !u!58 &1936008542
 CircleCollider2D:
