@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-
     void FixedUpdate() 
     {
         if (Input.GetAxis("Horizontal") == 0)

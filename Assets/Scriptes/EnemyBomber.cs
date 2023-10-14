@@ -8,6 +8,7 @@ public class EnemyBomber : EnemyAirPatrol
     [SerializeField] private float timeShoot = 4f;
     private List<GameObject> bullet;
     private byte bulletNumber = 0;
+    
     void Start()
     {
         bullet = new List<GameObject>();
