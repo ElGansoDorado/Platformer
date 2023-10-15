@@ -37,6 +37,9 @@ public class EnemyAirPatrol : Enemy
     IEnumerator Waiting()
     {
         yield return new WaitForSeconds(waitTime);
+
+        transform.eulerAngles = (transform.rotation.y == 0) ? new Vector3(0, 180, 0) : new Vector3(0,0,0);
+
         canGo = true;   
     }
 }
