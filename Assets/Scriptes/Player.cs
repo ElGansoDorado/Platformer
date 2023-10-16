@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     private bool isGround;
 
-    private int curHp = 3;
+    private int curHp;
     private int maxHp = 3;
     private bool isHit = false;
 
@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        curHp = maxHp;
     }
 
     void FixedUpdate() 
