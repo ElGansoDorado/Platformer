@@ -13,11 +13,14 @@ public class Player : MonoBehaviour
         Idle = 1,
         Walk = 2,
         Jump = 3,
+        Swim = 4,
     }
 
-    Rigidbody2D rb;
-    SpriteRenderer sr;
-    Animator anim;
+    public bool InWater = false;
+
+    private Rigidbody2D rb;
+    private SpriteRenderer sr;
+    private Animator anim;
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpHeight;
@@ -31,7 +34,7 @@ public class Player : MonoBehaviour
 
     private bool key;
     private bool canTP = true;
-
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -59,15 +62,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Flip();
+        if (InWater)
+        {
+            anim.SetInteger("State",(int) State.Swim);
+        }
+
         CheckGround();
     }
 
     private void Run()
     {
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
+        Flip();
 
-        if (isGround)
+        if (isGround && !InWater)
         {
             anim.SetInteger("State",(int) State.Walk);
         }
