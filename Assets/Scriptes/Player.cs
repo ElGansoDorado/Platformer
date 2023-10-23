@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
     private int maxHp = 3;
     private bool isHit = false;
 
+    private bool key;
+    private bool canTP = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -144,4 +147,37 @@ public class Player : MonoBehaviour
     {
         main.GetComponent<Main>().Lose();
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        switch (other.gameObject.tag)
+        {
+            case "Key":
+                Destroy(other.gameObject);
+                key = true;
+                break;
+
+            case "Door":
+                if (other.gameObject.GetComponent<Door>().isOpen && canTP)
+                {
+                    other.gameObject.GetComponent<Door>().Teleport(gameObject);
+                    canTP = false;
+                    StartCoroutine(TPWait());
+                }
+                else if (key)
+                {
+                    other.gameObject.GetComponent<Door>().Unlock();
+                }
+                break;
+
+            default:
+                break;
+        }   
+    }
+
+    private IEnumerator TPWait()
+    {
+        yield return new WaitForSeconds(1f);
+        canTP = true;
+    } 
 }
