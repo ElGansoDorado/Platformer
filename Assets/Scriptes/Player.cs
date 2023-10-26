@@ -13,11 +13,14 @@ public class Player : MonoBehaviour
         Idle = 1,
         Walk = 2,
         Jump = 3,
+        Swim = 4,
     }
 
-    Rigidbody2D rb;
-    SpriteRenderer sr;
-    Animator anim;
+    public bool InWater = false;
+
+    private Rigidbody2D rb;
+    private SpriteRenderer sr;
+    private Animator anim;
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpHeight;
@@ -29,6 +32,9 @@ public class Player : MonoBehaviour
     private int maxHp = 3;
     private bool isHit = false;
 
+    private bool key;
+    private bool canTP = true;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -56,15 +62,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Flip();
+        if (InWater)
+        {
+            anim.SetInteger("State",(int) State.Swim);
+        }
+
         CheckGround();
     }
 
     private void Run()
     {
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
+        Flip();
 
-        if (isGround)
+        if (isGround && !InWater)
         {
             anim.SetInteger("State",(int) State.Walk);
         }
@@ -144,4 +155,37 @@ public class Player : MonoBehaviour
     {
         main.GetComponent<Main>().Lose();
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        switch (other.gameObject.tag)
+        {
+            case "Key":
+                Destroy(other.gameObject);
+                key = true;
+                break;
+
+            case "Door":
+                if (other.gameObject.GetComponent<Door>().isOpen && canTP)
+                {
+                    other.gameObject.GetComponent<Door>().Teleport(gameObject);
+                    canTP = false;
+                    StartCoroutine(TPWait());
+                }
+                else if (key)
+                {
+                    other.gameObject.GetComponent<Door>().Unlock();
+                }
+                break;
+
+            default:
+                break;
+        }   
+    }
+
+    private IEnumerator TPWait()
+    {
+        yield return new WaitForSeconds(1f);
+        canTP = true;
+    } 
 }
