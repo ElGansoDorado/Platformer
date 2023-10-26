@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5284628678832549885}
   - component: {fileID: 3320731197884924647}
   m_Layer: 0
-  m_Name: Saw_Motor
+  m_Name: SawMotor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
