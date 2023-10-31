@@ -45,16 +45,12 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate() 
-    {
-        if (Input.GetAxis("Horizontal") == 0)
-        {
-            anim.SetInteger("State",(int) State.Idle);
-        }
+    {    
         if (Input.GetButton("Horizontal"))
         {
             Run();
         }
-        if (isGround && Input.GetButton("Jump"))
+        if (isGround && Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
@@ -62,12 +58,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        CheckGround();
+
         if (InWater)
         {
             anim.SetInteger("State",(int) State.Swim);
         }
 
-        CheckGround();
+        if (Input.GetAxis("Horizontal") == 0)
+        {
+            anim.SetInteger("State",(int) State.Idle);
+        }
     }
 
     private void Run()
@@ -102,7 +103,7 @@ public class Player : MonoBehaviour
 
     private void CheckGround()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.3f);
         isGround = colliders.Length > 1;
     }
 
@@ -187,5 +188,21 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         canTP = true;
-    } 
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Ladder")
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            transform.Translate(Vector3.up * Input.GetAxis("Vertical") * speed * 0.5f * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.tag == "Ladder")
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+    }
 }
