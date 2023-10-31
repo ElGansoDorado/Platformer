@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8953350147362171708}
   - component: {fileID: 4813862705590759132}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: dirt (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1286273378854928615}
   - component: {fileID: 7049295396771815796}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_right
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7409202287149346850}
   - component: {fileID: 6344288319664401320}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_left
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -210,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6792532295464864632}
   - component: {fileID: 5970582952832281443}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4712273844885075816}
   - component: {fileID: 1747363910170210577}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: dirtCliff_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8520918917015151008}
   - component: {fileID: 6763313899547709840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: dirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8088983327533069410}
   - component: {fileID: 2115369562255876073}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: dirt (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3056211753277823418}
   - component: {fileID: 6070820771771652009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: dirtCliff_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}

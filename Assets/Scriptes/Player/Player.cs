@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpHeight;
     [SerializeField] private Main main;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask ground;
     private bool isGround;
 
     private int curHp;
@@ -50,10 +51,10 @@ public class Player : MonoBehaviour
         {
             Run();
         }
-        if (isGround && Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
+        // if (isGround && Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Jump();
+        // }
     }
 
     void Update()
@@ -63,6 +64,10 @@ public class Player : MonoBehaviour
         if (InWater)
         {
             anim.SetInteger("State",(int) State.Swim);
+        }
+        if (isGround && Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
         }
 
         if (Input.GetAxis("Horizontal") == 0)
@@ -103,8 +108,9 @@ public class Player : MonoBehaviour
 
     private void CheckGround()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.3f);
-        isGround = colliders.Length > 1;
+        // Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.3f);
+        // isGround = colliders.Length > 1;
+        isGround = Physics2D.OverlapCircle(groundCheck.position, 0.3f, ground);
     }
 
     public void RecountHp(int deltaHp)
