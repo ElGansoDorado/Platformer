@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
         Walk = 2,
         Jump = 3,
         Swim = 4,
+        ClimbIdle = 5,
+        Climbing = 6
     }
 
     public bool InWater = false;
@@ -23,11 +25,13 @@ public class Player : MonoBehaviour
     private Animator anim;
 
     [SerializeField] private float speed;
+    [SerializeField] private float speedLadder;
     [SerializeField] private float jumpHeight;
     [SerializeField] private Main main;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask ground;
     private bool isGround;
+    private bool isClimbing = false;
 
     private int curHp;
     private int maxHp = 3;
@@ -36,81 +40,6 @@ public class Player : MonoBehaviour
     private bool key;
     private bool canTP = true;
     
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-
-        curHp = maxHp;
-    }
-
-    void FixedUpdate() 
-    {    
-        if (Input.GetButton("Horizontal"))
-        {
-            Run();
-        }
-        // if (isGround && Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     Jump();
-        // }
-    }
-
-    void Update()
-    {
-        CheckGround();
-
-        if (InWater)
-        {
-            anim.SetInteger("State",(int) State.Swim);
-        }
-        if (isGround && Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
-
-        if (Input.GetAxis("Horizontal") == 0)
-        {
-            anim.SetInteger("State",(int) State.Idle);
-        }
-    }
-
-    private void Run()
-    {
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
-        Flip();
-
-        if (isGround && !InWater)
-        {
-            anim.SetInteger("State",(int) State.Walk);
-        }
-    }
-
-    private void Jump()
-    {
-        rb.AddForce(transform.up * jumpHeight, ForceMode2D.Impulse);
-
-        anim.SetInteger("State",(int) State.Jump);
-    }
-
-    private void Flip()
-    {
-        if (Input.GetAxis("Horizontal") > 0)
-        {
-            sr.flipX = false;
-        }
-        if (Input.GetAxis("Horizontal") < 0)
-        {
-            sr.flipX = true;
-        }
-    }
-
-    private void CheckGround()
-    {
-        isGround = Physics2D.OverlapCircle(groundCheck.position, 0.3f, ground);
-    }
-
     public void RecountHp(int deltaHp)
     {
         curHp = curHp + deltaHp;
@@ -131,7 +60,85 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator OnHit()
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+
+        curHp = maxHp;
+    }
+
+    private void FixedUpdate() 
+    {    
+        if (Input.GetButton("Horizontal"))
+        {
+            Run();
+        }
+    }
+
+    private void Update()
+    {
+        CheckGround();
+
+        if (InWater && !isClimbing)
+        {
+            anim.SetInteger("State",(int) State.Swim);
+        }
+
+        if (isGround && !isClimbing)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
+        }
+        else if (!isClimbing && !InWater && !isGround)
+        {
+            anim.SetInteger("State",(int) State.Jump);
+        }
+
+        if (Input.GetAxis("Horizontal") == 0 && !isClimbing)
+        {
+            anim.SetInteger("State",(int) State.Idle);
+        }
+    }
+
+    private void Run()
+    {
+        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
+        Flip();
+
+        if (isGround && !InWater && !isClimbing)
+        {
+            anim.SetInteger("State",(int) State.Walk);
+        }
+    }
+
+    private void Jump()
+    {
+        rb.AddForce(transform.up * jumpHeight, ForceMode2D.Impulse);
+    }
+
+    private void Flip()
+    {
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            sr.flipX = false;
+        }
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            sr.flipX = true;
+        }
+    }
+
+    private void CheckGround()
+    {
+        isGround = Physics2D.OverlapCircle(groundCheck.position, 0.3f, ground);
+    }
+
+
+    private IEnumerator OnHit()
     {
         if (isHit)
         {
@@ -194,19 +201,48 @@ public class Player : MonoBehaviour
         canTP = true;
     }
 
-    // private void OnTriggerStay2D(Collider2D other)
-    // {
-    //     if (other.gameObject.tag == "Ladder")
-    //     {
-    //         rb.gravityScale = 0;
-    //         transform.Translate(Vector3.up * Input.GetAxis("Vertical") * speed * 0.5f * Time.deltaTime);
-    //     }
-    // }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ladder"))
+        {
+            isClimbing = true;
+            rb.gravityScale = 0;
+            
+            if (Input.GetKey(KeyCode.W))
+            {
+                LadderMov(speedLadder);
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                LadderMov(-speedLadder);
+            }
+            else
+            {
+                LadderMov(0);
+            }
+        }
+    }
 
-    // private void OnTriggerExit2D(Collider2D other) {
-    //     if (other.gameObject.tag == "Ladder")
-    //     {
-    //         rb.gravityScale = 1;
-    //     }
-    // }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ladder"))
+        {
+            isClimbing = false;
+            rb.gravityScale = 1;
+        }
+    }
+
+    private void LadderMov(float speed)
+    {
+        rb.velocity = new Vector2(0, speed);
+
+        if (speed == 0)
+        {
+            anim.SetInteger("State",(int) State.ClimbIdle);
+        }
+        else
+        {
+            anim.SetInteger("State",(int) State.Climbing);
+        }
+    }
 }
