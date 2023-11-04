@@ -108,8 +108,6 @@ public class Player : MonoBehaviour
 
     private void CheckGround()
     {
-        // Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.3f);
-        // isGround = colliders.Length > 1;
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.3f, ground);
     }
 
@@ -196,19 +194,19 @@ public class Player : MonoBehaviour
         canTP = true;
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Ladder")
-        {
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            transform.Translate(Vector3.up * Input.GetAxis("Vertical") * speed * 0.5f * Time.deltaTime);
-        }
-    }
+    // private void OnTriggerStay2D(Collider2D other)
+    // {
+    //     if (other.gameObject.tag == "Ladder")
+    //     {
+    //         rb.gravityScale = 0;
+    //         transform.Translate(Vector3.up * Input.GetAxis("Vertical") * speed * 0.5f * Time.deltaTime);
+    //     }
+    // }
 
-    private void OnTriggerExit2D(Collider2D other) {
-        if (other.gameObject.tag == "Ladder")
-        {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-        }
-    }
+    // private void OnTriggerExit2D(Collider2D other) {
+    //     if (other.gameObject.tag == "Ladder")
+    //     {
+    //         rb.gravityScale = 1;
+    //     }
+    // }
 }
