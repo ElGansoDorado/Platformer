@@ -8,6 +8,11 @@ TagManager:
   - Door
   - Ladder
   - Ground
+  - MarkBox
+  - Coin
+  - Heart
+  - BlueGem
+  - GreenGem
   layers:
   - Default
   - TransparentFX

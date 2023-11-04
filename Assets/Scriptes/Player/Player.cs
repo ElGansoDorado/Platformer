@@ -25,25 +25,29 @@ public class Player : MonoBehaviour
     [SerializeField] private Main main;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask ground;
+    [SerializeField] private GameObject blueGem, greenGem;
     private bool isGround;
     private bool isClimbing = false;
 
     private int curHp;
     private int maxHp = 3;
     private int coins = 0;
+    private int gemCount = 0;
     private bool isHit = false;
+    private bool canHit = true;
 
     private bool key;
     private bool canTP = true;
     
     public void RecountHp(int deltaHp)
     {
-        curHp = (curHp + deltaHp <= maxHp) ? curHp + deltaHp : curHp;
+        curHp = ((curHp + deltaHp <= maxHp) && canHit) ? curHp + deltaHp : curHp;
 
-        if (deltaHp < 0)
+        if (deltaHp < 0 && canHit)
         {
             StopCoroutine(OnHit());
 
+            canHit = false;
             isHit = true;
 
             StartCoroutine(OnHit());
@@ -149,6 +153,7 @@ public class Player : MonoBehaviour
         if (sr.color.g == 1f)
         {
             StopCoroutine(OnHit());
+            canHit = true;
         }
 
         if (sr.color.g <= 0)
@@ -196,6 +201,16 @@ public class Player : MonoBehaviour
             case "Heart":
                 Destroy(other.gameObject);
                 RecountHp(1);
+                break;
+
+            case "BlueGem":
+                Destroy(other.gameObject);
+                StartCoroutine(NoHitBonus());
+                break;
+
+             case "GreenGem":
+                Destroy(other.gameObject);
+                StartCoroutine(SpeedBonus());
                 break;
 
             default:
@@ -251,6 +266,66 @@ public class Player : MonoBehaviour
         else
         {
             anim.SetInteger("State",(int) State.Climbing);
+        }
+    }
+
+    private IEnumerator NoHitBonus()
+    {
+        gemCount++;
+        blueGem.SetActive(true);
+        CheckGems(blueGem);
+        canHit = false;
+        print("Бонус действует");
+        blueGem.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(Invis(blueGem.GetComponent<SpriteRenderer>(), 0.02f));
+        yield return new WaitForSeconds(1f);
+        print("Юонус завершился");
+        canHit = true;
+        CheckGems(blueGem);
+        blueGem.SetActive(false);
+        gemCount--;
+    }
+
+    private IEnumerator SpeedBonus()
+    {
+        gemCount++;
+        greenGem.SetActive(true);
+        speed *= 2;
+        CheckGems(greenGem);
+        
+        greenGem.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(Invis(greenGem.GetComponent<SpriteRenderer>(), 0.02f));
+        yield return new WaitForSeconds(1f);
+        
+        CheckGems(greenGem);
+        speed /= 2;
+        greenGem.SetActive(false);
+        gemCount--;
+    }
+
+    private void CheckGems(GameObject obj)
+    {
+        if (gemCount == 1)
+        {
+            obj.transform.localPosition = new Vector3(0f, 0.45f, obj.transform.localPosition.z);
+        }
+        else if (gemCount == 2)
+        {
+            blueGem.transform.localPosition = new Vector3(-0.3f, 0.4f, blueGem.transform.localPosition.z);
+            greenGem.transform.localPosition = new Vector3(0.3f, 0.4f, greenGem.transform.localPosition.z);
+        }
+    }
+
+    private IEnumerator Invis(SpriteRenderer spr, float time)
+    {
+        spr.color = new Color(1f, 1f, 1f, spr.color.a - time * 2);
+        yield return new WaitForSeconds(time);
+
+        if (spr.color.a > 0)
+        {
+            StartCoroutine(Invis(spr, time));
         }
     }
 }
