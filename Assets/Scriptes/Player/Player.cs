@@ -1,9 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
-using UnityEditor.Tilemaps;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -98,7 +93,7 @@ public class Player : MonoBehaviour
             anim.SetInteger("State",(int) State.Jump);
         }
 
-        if (Input.GetAxis("Horizontal") == 0 && !isClimbing)
+        if (Input.GetAxis("Horizontal") == 0 && !isClimbing && !InWater)
         {
             anim.SetInteger("State",(int) State.Idle);
         }
