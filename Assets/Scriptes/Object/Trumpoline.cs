@@ -14,7 +14,7 @@ public class Trumpoline : MonoBehaviour
     private IEnumerator TrampolineAnim(Animator anim)
     {
         anim.SetBool("isJump", true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         anim.SetBool("isJump", false);
     }
 }
