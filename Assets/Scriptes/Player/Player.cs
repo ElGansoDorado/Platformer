@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
 
     private int curHp;
     private int maxHp = 3;
+    private int coins = 0;
     private bool isHit = false;
 
     private bool key;
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour
     
     public void RecountHp(int deltaHp)
     {
-        curHp = curHp + deltaHp;
+        curHp = (curHp + deltaHp <= maxHp) ? curHp + deltaHp : curHp;
 
         if (deltaHp < 0)
         {
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
             StartCoroutine(OnHit());
         }
 
+        print("Хп осталось: " + curHp);
         if (curHp <= 0)
         {
             GetComponent<CapsuleCollider2D>().enabled = false;
@@ -183,6 +185,17 @@ public class Player : MonoBehaviour
                 {
                     other.gameObject.GetComponent<Door>().Unlock();
                 }
+                break;
+
+            case "Coin":
+                Destroy(other.gameObject);
+                coins++;
+                print($"Всего монет: {coins}");
+                break;
+
+            case "Heart":
+                Destroy(other.gameObject);
+                RecountHp(1);
                 break;
 
             default:
