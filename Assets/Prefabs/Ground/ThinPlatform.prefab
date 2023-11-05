@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2788216626270125696}
   - component: {fileID: 4361079983205712725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bridgeB (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,8 +96,8 @@ GameObject:
   - component: {fileID: 2718193163079975670}
   - component: {fileID: 3994484644402148807}
   - component: {fileID: 284086556352160183}
-  m_Layer: 0
-  m_Name: Platform 1
+  m_Layer: 6
+  m_Name: ThinPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6600660963447410951}
   - component: {fileID: 8560025329485112025}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bridgeB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1292032335953199933}
   - component: {fileID: 8538687207270923499}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bridgeB (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

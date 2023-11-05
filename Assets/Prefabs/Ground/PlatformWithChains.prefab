@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009454940106958006}
   - component: {fileID: 7270611965532946169}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: chain (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7994140523095722652}
   - component: {fileID: 5078380788816893273}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: chain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,8 +180,8 @@ GameObject:
   - component: {fileID: 7080567084843949329}
   - component: {fileID: 4578392063422046135}
   - component: {fileID: 1272418489388323060}
-  m_Layer: 0
-  m_Name: Platform_two
+  m_Layer: 6
+  m_Name: PlatformWithChains
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7622361634762417786}
   - component: {fileID: 3196036166159592166}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: chain (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2542832471539630696}
   - component: {fileID: 8426419793597983030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: chain (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3308447525215609870}
   - component: {fileID: 4213096021881261513}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bridgeB (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +538,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7191591377482881714}
   - component: {fileID: 5184149158850949608}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bridgeB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3687745145405154956}
   - component: {fileID: 3706644086435340872}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bridgeB (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

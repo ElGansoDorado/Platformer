@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3364246293406880544}
   - component: {fileID: 7776786913698721774}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: stoneLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 175132594940440306}
   - component: {fileID: 7494180167030524580}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3272348141582849417}
   - component: {fileID: 1008369761803335906}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: stoneMid (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6341242753306269457}
   - component: {fileID: 5225665455743905218}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: stoneMid (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5806062232942369343}
   - component: {fileID: 5834809850480936889}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: stoneRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,8 +404,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1190826479616473133}
   - component: {fileID: 5756635926419936417}
-  m_Layer: 0
-  m_Name: Stone_Platform
+  m_Layer: 6
+  m_Name: StonePlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,7 +469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7032343729906898669}
   - component: {fileID: 5022349471783344894}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: stoneMid (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6572114790999158529}
   - component: {fileID: 6107714928940593185}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
