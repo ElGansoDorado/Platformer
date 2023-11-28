@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
             sr.color = new Color(1f, sr.color.g + 0.04f, sr.color.b + 0.04f);
         }
 
-        if (sr.color.g == 1f)
+        if (sr.color.g >= 1f)
         {
             StopCoroutine(OnHit());
             canHit = true;
@@ -275,12 +275,12 @@ public class Player : MonoBehaviour
         blueGem.SetActive(true);
         CheckGems(blueGem);
         canHit = false;
-        print("Бонус действует");
+
         blueGem.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         yield return new WaitForSeconds(5f);
         StartCoroutine(Invis(blueGem.GetComponent<SpriteRenderer>(), 0.02f));
         yield return new WaitForSeconds(1f);
-        print("Юонус завершился");
+
         canHit = true;
         CheckGems(blueGem);
         blueGem.SetActive(false);
