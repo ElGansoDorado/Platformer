@@ -138,7 +138,6 @@ public class Player : MonoBehaviour
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.3f, ground);
     }
 
-
     private IEnumerator OnHit()
     {
         if (isHit)
@@ -326,6 +325,24 @@ public class Player : MonoBehaviour
         if (spr.color.a > 0)
         {
             StartCoroutine(Invis(spr, time));
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Quicksand")
+        {
+            speed *= 0.25f;
+            rb.mass *= 100f;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Quicksand")
+        {
+            speed /= 0.25f;
+            rb.mass /= 100f;
         }
     }
 }
