@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FlyPlatform : MonoBehaviour
 {
-    public Transform[] points;
-    public float speed = 1f;
-    int i = 1;
+    [SerializeField] private Transform[] points;
+    [SerializeField] private float speed = 1f;
+    private int i = 1;
 
     void Start()
     {

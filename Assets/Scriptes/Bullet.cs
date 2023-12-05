@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     {
         StartCoroutine(SetDisabled());
     }
+    
     void Update()
     {
         transform.Translate(Vector2.down * speed * Time.deltaTime);
