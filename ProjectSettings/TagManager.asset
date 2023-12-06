@@ -13,6 +13,7 @@ TagManager:
   - Heart
   - BlueGem
   - GreenGem
+  - Quicksand
   layers:
   - Default
   - TransparentFX

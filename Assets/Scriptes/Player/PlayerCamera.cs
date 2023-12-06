@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    float speed = 3f;
     [SerializeField] Transform target;
+    private float speed = 3f;
 
     void Start()
     {
