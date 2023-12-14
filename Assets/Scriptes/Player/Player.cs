@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
     private int curHp;
     private int maxHp = 3;
-    private int coins = 0;
+    public int coins {get; private set;} = 0;
     private int gemCount = 0;
     private bool isHit = false;
     private bool canHit = true;
