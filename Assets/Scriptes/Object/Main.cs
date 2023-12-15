@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using TMPro.Examples;
 
 public class Main : MonoBehaviour
 {
@@ -31,52 +32,52 @@ public class Main : MonoBehaviour
         }
     }
 
+    private void Status(bool b)
+    {
+        Time.timeScale = b ? 1f : 0f;
+        player.enabled = b;
+    }
+    
     public void ReloadLevel()
     {
-        Time.timeScale = 1f;
-        player.enabled = true;
+        Status(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void PauseOn()
     {
-        Time.timeScale = 0f;
-        player.enabled = false;
+        Status(false);
         PausePanel.SetActive(true);
     }
 
     public void PauseOff()
     {
-        Time.timeScale = 1f;
-        player.enabled = true;
+        Status(true);
         PausePanel.SetActive(false);
     }
 
     public void Win()
     {
-        Time.timeScale = 0f;
-        player.enabled = false;
+        Status(false);
         WinPanel.SetActive(true);
     }
 
     public void Lose()
     {
-        Time.timeScale = 0f;
-        player.enabled = false;
+        Status(false);
         LosePanel.SetActive(true);
     }
 
+
     public void MenuLevel()
     {
-        Time.timeScale = 1f;
-        player.enabled = true;
+        Status(true);
         SceneManager.LoadScene("Menu");
     }
 
     public void Nextlevel()
     {
-        Time.timeScale = 1f;
-        player.enabled = true;
+        Status(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
