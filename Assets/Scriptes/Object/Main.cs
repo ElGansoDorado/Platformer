@@ -10,6 +10,7 @@ public class Main : MonoBehaviour
     [SerializeField] private TMP_Text coinText;
     [SerializeField] private Image[] hearts;
     [SerializeField] private Sprite isLife, nonLife;
+    [SerializeField] private GameObject PausePanel;
 
     public void Update()
     {
@@ -31,5 +32,19 @@ public class Main : MonoBehaviour
     public void Lose()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PauseOn()
+    {
+        Time.timeScale = 0f;
+        player.enabled = false;
+        PausePanel.SetActive(true);
+    }
+
+    public void PauseOff()
+    {
+        Time.timeScale = 1f;
+        player.enabled = true;
+        PausePanel.SetActive(false);
     }
 }
