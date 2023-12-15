@@ -29,10 +29,11 @@ public class Player : MonoBehaviour
     private bool isGround;
     private bool isClimbing = false;
 
-    private int curHp;
+    public int curHp {get; private set;}
     private int maxHp = 3;
-    public int coins {get; private set;} = 0;
+    public int coins {get; private set;}
     private int gemCount = 0;
+
     private bool isHit = false;
     private bool canHit = true;
 
@@ -53,7 +54,6 @@ public class Player : MonoBehaviour
             StartCoroutine(OnHit());
         }
 
-        print("Хп осталось: " + curHp);
         if (curHp <= 0)
         {
             GetComponent<CapsuleCollider2D>().enabled = false;
@@ -194,7 +194,6 @@ public class Player : MonoBehaviour
             case "Coin":
                 Destroy(other.gameObject);
                 coins++;
-                print($"Всего монет: {coins}");
                 break;
 
             case "Heart":

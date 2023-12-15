@@ -1,18 +1,31 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using Microsoft.Unity.VisualStudio.Editor;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class Main : MonoBehaviour
 {
-    public Player player;
-    public TMP_Text coinText;
-    public Image[] hearts;
-    public Sprite isLife, nonLife;
+    [SerializeField] private Player player;
+    [SerializeField] private TMP_Text coinText;
+    [SerializeField] private Image[] hearts;
+    [SerializeField] private Sprite isLife, nonLife;
 
     public void Update()
     {
         coinText.text = player.coins.ToString();
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (player.curHp > i)
+             {
+                hearts[i].sprite = isLife;
+            }
+            else
+            {
+                hearts[i].sprite = nonLife;
+            }
+        }
     }
 
     public void Lose()
