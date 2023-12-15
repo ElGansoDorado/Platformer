@@ -11,6 +11,8 @@ public class Main : MonoBehaviour
     [SerializeField] private Image[] hearts;
     [SerializeField] private Sprite isLife, nonLife;
     [SerializeField] private GameObject PausePanel;
+    [SerializeField] private GameObject WinPanel;
+    [SerializeField] private GameObject LosePanel;
 
     public void Update()
     {
@@ -29,8 +31,10 @@ public class Main : MonoBehaviour
         }
     }
 
-    public void Lose()
+    public void ReloadLevel()
     {
+        Time.timeScale = 1f;
+        player.enabled = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -46,5 +50,33 @@ public class Main : MonoBehaviour
         Time.timeScale = 1f;
         player.enabled = true;
         PausePanel.SetActive(false);
+    }
+
+    public void Win()
+    {
+        Time.timeScale = 0f;
+        player.enabled = false;
+        WinPanel.SetActive(true);
+    }
+
+    public void Lose()
+    {
+        Time.timeScale = 0f;
+        player.enabled = false;
+        LosePanel.SetActive(true);
+    }
+
+    public void MenuLevel()
+    {
+        Time.timeScale = 1f;
+        player.enabled = true;
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void Nextlevel()
+    {
+        Time.timeScale = 1f;
+        player.enabled = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
