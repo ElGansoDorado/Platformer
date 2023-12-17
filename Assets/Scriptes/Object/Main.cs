@@ -11,9 +11,9 @@ public class Main : MonoBehaviour
     [SerializeField] private TMP_Text coinText;
     [SerializeField] private Image[] hearts;
     [SerializeField] private Sprite isLife, nonLife;
-    [SerializeField] private GameObject PausePanel;
-    [SerializeField] private GameObject WinPanel;
-    [SerializeField] private GameObject LosePanel;
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject losePanel;
 
     public void Update()
     {
@@ -22,7 +22,7 @@ public class Main : MonoBehaviour
         for (int i = 0; i < hearts.Length; i++)
         {
             if (player.curHp > i)
-             {
+            {
                 hearts[i].sprite = isLife;
             }
             else
@@ -32,10 +32,10 @@ public class Main : MonoBehaviour
         }
     }
 
-    private void Status(bool b)
+    private void Status(bool statusSwitch)
     {
-        Time.timeScale = b ? 1f : 0f;
-        player.enabled = b;
+        Time.timeScale = statusSwitch ? 1f : 0f;
+        player.enabled = statusSwitch;
     }
     
     public void ReloadLevel()
@@ -47,25 +47,25 @@ public class Main : MonoBehaviour
     public void PauseOn()
     {
         Status(false);
-        PausePanel.SetActive(true);
+        pausePanel.SetActive(true);
     }
 
     public void PauseOff()
     {
         Status(true);
-        PausePanel.SetActive(false);
+        pausePanel.SetActive(false);
     }
 
     public void Win()
     {
         Status(false);
-        WinPanel.SetActive(true);
+        winPanel.SetActive(true);
     }
 
     public void Lose()
     {
         Status(false);
-        LosePanel.SetActive(true);
+        losePanel.SetActive(true);
     }
 
 

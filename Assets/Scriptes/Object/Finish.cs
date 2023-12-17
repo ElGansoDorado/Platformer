@@ -6,6 +6,7 @@ public class Finish : MonoBehaviour
 {
     [SerializeField] private Main main;
     [SerializeField] private Sprite finSprite;
+    
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if (other.gameObject.tag == "Player")
