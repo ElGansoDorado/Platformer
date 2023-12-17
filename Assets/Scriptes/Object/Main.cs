@@ -32,10 +32,10 @@ public class Main : MonoBehaviour
         }
     }
 
-    private void Status(bool statusSwitch)
+    private void Status(bool isPause)
     {
-        Time.timeScale = statusSwitch ? 1f : 0f;
-        player.enabled = statusSwitch;
+        Time.timeScale = isPause ? 1f : 0f;
+        player.enabled = isPause;
     }
     
     public void ReloadLevel()
