@@ -1788,9 +1788,9 @@ MonoBehaviour:
   - {fileID: 331153575}
   isLife: {fileID: 21300000, guid: 04479a85fa67b8f4b9b5788c285dae83, type: 3}
   nonLife: {fileID: 21300000, guid: 5062e4d42d7face4a98f06782d1c1940, type: 3}
-  PausePanel: {fileID: 609898251}
-  WinPanel: {fileID: 1143301231}
-  LosePanel: {fileID: 2089836919}
+  pausePanel: {fileID: 609898251}
+  winPanel: {fileID: 1143301231}
+  losePanel: {fileID: 2089836919}
 --- !u!4 &540604244 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8332300105797251290, guid: 89de47c0980880d4f9e4602f257b7085, type: 3}
@@ -7019,7 +7019,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.74818087}
   m_AnchorMax: {x: 0.14873119, y: 0.8638635}
-  m_AnchoredPosition: {x: -13.299957, y: -26}
+  m_AnchoredPosition: {x: -13.299927, y: -26}
   m_SizeDelta: {x: -78, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1506054679
