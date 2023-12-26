@@ -100,9 +100,6 @@ public class Main : MonoBehaviour
         }
 
         string gemsThisLvl = "Gems" + SceneManager.GetActiveScene().buildIndex.ToString();
-        print("я тут в " + gemsThisLvl);
-        print(player.gems);
-
         if (PlayerPrefs.HasKey(gemsThisLvl))
         {
             if (PlayerPrefs.GetInt(gemsThisLvl) > player.gems)
@@ -118,10 +115,6 @@ public class Main : MonoBehaviour
             if (PlayerPrefs.HasKey("Gems"))
             {
                 PlayerPrefs.SetInt("Gems", PlayerPrefs.GetInt("Gems") + player.gems);
-
-                print(PlayerPrefs.GetInt("Gems"));
-                print(Math.Abs(player.gems - PlayerPrefs.GetInt(gemsThisLvl)));
-                print(PlayerPrefs.GetInt("Gems") + Math.Abs(player.gems - PlayerPrefs.GetInt(gemsThisLvl)));
             }
             else
             {
