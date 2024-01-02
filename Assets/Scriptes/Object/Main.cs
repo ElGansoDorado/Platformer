@@ -16,6 +16,11 @@ public class Main : MonoBehaviour
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
 
+    readonly private string Lvl = "Lvl";
+    readonly private string Coins = "Coins";
+    readonly private string Gems = "Gems";
+
+
     public void Update()
     {
         coinText.text = player.coins.ToString();
@@ -85,40 +90,40 @@ public class Main : MonoBehaviour
 
     private void SaveData()
     {
-        if (!PlayerPrefs.HasKey("Lvl") || PlayerPrefs.GetInt("Lvl") < SceneManager.GetActiveScene().buildIndex)
+        if (!PlayerPrefs.HasKey(Lvl) || PlayerPrefs.GetInt(Lvl) < SceneManager.GetActiveScene().buildIndex)
         {
-            PlayerPrefs.SetInt("Lvl", SceneManager.GetActiveScene().buildIndex);
+            PlayerPrefs.SetInt(Lvl, SceneManager.GetActiveScene().buildIndex);
         }
 
-        if (PlayerPrefs.HasKey("Coins"))
+        if (PlayerPrefs.HasKey(Coins))
         {
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + player.coins);
+            PlayerPrefs.SetInt(Coins, PlayerPrefs.GetInt(Coins) + player.coins);
         }
         else
         {
-            PlayerPrefs.SetInt("Coins", player.coins);
+            PlayerPrefs.SetInt(Coins, player.coins);
         }
 
-        string gemsThisLvl = "Gems" + SceneManager.GetActiveScene().buildIndex.ToString();
+        string gemsThisLvl = Gems + SceneManager.GetActiveScene().buildIndex.ToString();
         if (PlayerPrefs.HasKey(gemsThisLvl))
         {
             if (PlayerPrefs.GetInt(gemsThisLvl) > player.gems)
             {
                 PlayerPrefs.SetInt(gemsThisLvl, player.gems);
-                PlayerPrefs.SetInt("Gems", PlayerPrefs.GetInt("Gems") + Math.Abs(player.gems - PlayerPrefs.GetInt(gemsThisLvl)));
+                PlayerPrefs.SetInt(Gems, PlayerPrefs.GetInt(Gems) + Math.Abs(player.gems - PlayerPrefs.GetInt(gemsThisLvl)));
             }
         }
         else
         {
             PlayerPrefs.SetInt(gemsThisLvl, player.gems);
 
-            if (PlayerPrefs.HasKey("Gems"))
+            if (PlayerPrefs.HasKey(Gems))
             {
-                PlayerPrefs.SetInt("Gems", PlayerPrefs.GetInt("Gems") + player.gems);
+                PlayerPrefs.SetInt(Gems, PlayerPrefs.GetInt(Gems) + player.gems);
             }
             else
             {
-                PlayerPrefs.SetInt("Gems", player.gems);
+                PlayerPrefs.SetInt(Gems, player.gems);
             }
         }
     }
