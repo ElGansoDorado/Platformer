@@ -30,9 +30,11 @@ public class Player : MonoBehaviour
     private bool isClimbing = false;
 
     public int curHp {get; private set;}
+    public int coins {get; private set;} = 0;
+    public int gems {get; private set;} = 0;
     private int maxHp = 3;
-    public int coins {get; private set;}
     private int gemCount = 0;
+    
 
     private bool isHit = false;
     private bool canHit = true;
@@ -202,11 +204,13 @@ public class Player : MonoBehaviour
                 break;
 
             case "BlueGem":
+                gems++;
                 Destroy(other.gameObject);
                 StartCoroutine(NoHitBonus());
                 break;
 
              case "GreenGem":
+                gems++;
                 Destroy(other.gameObject);
                 StartCoroutine(SpeedBonus());
                 break;
