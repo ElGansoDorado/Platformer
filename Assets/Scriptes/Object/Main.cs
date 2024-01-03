@@ -2,12 +2,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-using TMPro.Examples;
 using System;
 
 public class Main : MonoBehaviour
 {
+
+    #region CONSTANS
+
+    private const string LVL = "COMPLETED_LEVELS";
+    private const string COINS = "Coins";
+    private const string GEMS = "Gems";
+
+    #endregion
+
+
     [SerializeField] private Player player;
     [SerializeField] private TMP_Text coinText;
     [SerializeField] private Image[] hearts;
@@ -16,12 +24,8 @@ public class Main : MonoBehaviour
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
 
-    readonly private string Lvl = "Lvl";
-    readonly private string Coins = "Coins";
-    readonly private string Gems = "Gems";
 
-
-    public void Update()
+    private void Update()
     {
         coinText.text = player.coins.ToString();
 
@@ -37,12 +41,7 @@ public class Main : MonoBehaviour
             }
         }
     }
-
-    private void Status(bool isPause)
-    {
-        Time.timeScale = isPause ? 1f : 0f;
-        player.enabled = isPause;
-    }
+    
     
     public void ReloadLevel()
     {
@@ -88,42 +87,49 @@ public class Main : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+
+    private void Status(bool isPause)
+    {
+        Time.timeScale = isPause ? 1f : 0f;
+        player.enabled = isPause;
+    }
+
     private void SaveData()
     {
-        if (!PlayerPrefs.HasKey(Lvl) || PlayerPrefs.GetInt(Lvl) < SceneManager.GetActiveScene().buildIndex)
+        if (!PlayerPrefs.HasKey(LVL) || PlayerPrefs.GetInt(LVL) < SceneManager.GetActiveScene().buildIndex)
         {
-            PlayerPrefs.SetInt(Lvl, SceneManager.GetActiveScene().buildIndex);
+            PlayerPrefs.SetInt(LVL, SceneManager.GetActiveScene().buildIndex);
         }
 
-        if (PlayerPrefs.HasKey(Coins))
+        if (PlayerPrefs.HasKey(COINS))
         {
-            PlayerPrefs.SetInt(Coins, PlayerPrefs.GetInt(Coins) + player.coins);
+            PlayerPrefs.SetInt(COINS, PlayerPrefs.GetInt(COINS) + player.coins);
         }
         else
         {
-            PlayerPrefs.SetInt(Coins, player.coins);
+            PlayerPrefs.SetInt(COINS, player.coins);
         }
 
-        string gemsThisLvl = Gems + SceneManager.GetActiveScene().buildIndex.ToString();
+        string gemsThisLvl = GEMS + SceneManager.GetActiveScene().buildIndex.ToString();
         if (PlayerPrefs.HasKey(gemsThisLvl))
         {
             if (PlayerPrefs.GetInt(gemsThisLvl) > player.gems)
             {
                 PlayerPrefs.SetInt(gemsThisLvl, player.gems);
-                PlayerPrefs.SetInt(Gems, PlayerPrefs.GetInt(Gems) + Math.Abs(player.gems - PlayerPrefs.GetInt(gemsThisLvl)));
+                PlayerPrefs.SetInt(GEMS, PlayerPrefs.GetInt(GEMS) + Math.Abs(player.gems - PlayerPrefs.GetInt(gemsThisLvl)));
             }
         }
         else
         {
             PlayerPrefs.SetInt(gemsThisLvl, player.gems);
 
-            if (PlayerPrefs.HasKey(Gems))
+            if (PlayerPrefs.HasKey(GEMS))
             {
-                PlayerPrefs.SetInt(Gems, PlayerPrefs.GetInt(Gems) + player.gems);
+                PlayerPrefs.SetInt(GEMS, PlayerPrefs.GetInt(GEMS) + player.gems);
             }
             else
             {
-                PlayerPrefs.SetInt(Gems, player.gems);
+                PlayerPrefs.SetInt(GEMS, player.gems);
             }
         }
     }

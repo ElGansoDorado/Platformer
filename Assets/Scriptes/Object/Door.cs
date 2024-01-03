@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public bool isOpen{get; private set;} = false;
 
     [SerializeField] private Transform door;
     [SerializeField] private Sprite mid, top;
+
+    public bool isOpen{get; private set;} = false;
+
 
     public void Unlock()
     {

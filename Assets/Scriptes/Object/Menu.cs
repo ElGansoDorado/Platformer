@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,23 +5,12 @@ using TMPro;
 
 public class Menu : MonoBehaviour
 {
-    public Button[] Lvls;
+
     [SerializeField] TMP_Text coinsText; 
     [SerializeField] TMP_Text gemsText; 
 
+    public Button[] Lvls;
 
-    private void Update() 
-    {
-        if (PlayerPrefs.HasKey("Coins"))
-        {
-            coinsText.text = PlayerPrefs.GetInt("Coins").ToString();
-        }
-
-        if (PlayerPrefs.HasKey("Gems"))
-        {
-            gemsText.text = PlayerPrefs.GetInt("Gems").ToString();
-        }
-    }
 
     private void Start()
     {
@@ -43,6 +30,7 @@ public class Menu : MonoBehaviour
         }
     }
 
+
     public void OpenScene(int index)
     {
         SceneManager.LoadScene(index);
@@ -51,5 +39,19 @@ public class Menu : MonoBehaviour
     public void DeleteKeys()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+
+    private void Update() 
+    {
+        if (PlayerPrefs.HasKey("Coins"))
+        {
+            coinsText.text = PlayerPrefs.GetInt("Coins").ToString();
+        }
+
+        if (PlayerPrefs.HasKey("Gems"))
+        {
+            gemsText.text = PlayerPrefs.GetInt("Gems").ToString();
+        }
     }
 }

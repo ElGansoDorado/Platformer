@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    
     private bool isHit = false;
 
-    private void OnCollisionEnter2D(Collision2D other)
+
+    public void StartCorutineDeath()
     {
-        if (other.gameObject.tag == "Player" && !isHit)
-        {
-           other.gameObject.GetComponent<Player>().RecountHp(-1);
-           other.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 8f, ForceMode2D.Impulse);
-        }
+        StartCoroutine(Death());
     }
+
 
     private IEnumerator Death()
     {
@@ -27,8 +26,13 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void StartCorutineDeath()
+
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        StartCoroutine(Death());
+        if (other.gameObject.tag == "Player" && !isHit)
+        {
+           other.gameObject.GetComponent<Player>().RecountHp(-1);
+           other.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 8f, ForceMode2D.Impulse);
+        }
     }
 }

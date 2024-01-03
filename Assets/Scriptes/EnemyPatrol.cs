@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class EnemyPatrol : Enemy
 {
+
     [SerializeField] private float speed = 1.5f;
     [SerializeField] private bool moveLeft = true;
     [SerializeField] private Transform groundDetect;
+
     private Animator anim;
 
-    void Start()
+
+    private void Start()
     {
         anim = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
         if (anim.GetBool("dead")) 
         {

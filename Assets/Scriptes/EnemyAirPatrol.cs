@@ -1,22 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAirPatrol : Enemy
 {
+    
     [SerializeField] private float speed = 1.5f;
     [SerializeField] private Transform[] points;
-    private byte i = 0;
 
+    private byte i = 0;
     private float waitTime = 2f;
     private bool canGo = true;
 
-    void Start()
+
+    private void Start()
     {
         gameObject.transform.position = new Vector3(points[i].position.x, transform.position.y, transform.position.z);
     }
 
-    void Update()
+    private void Update()
     {
         if (canGo)
         {
@@ -38,6 +39,7 @@ public class EnemyAirPatrol : Enemy
             StartCoroutine(Waiting());
         }
     }
+
 
     private IEnumerator Waiting()
     {

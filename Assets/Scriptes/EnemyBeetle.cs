@@ -1,21 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBeetle : Enemy
 {
+
     [SerializeField] private float waitTime = 4f;
     [SerializeField] private float speed = 4f;
     [SerializeField] private Transform point;
+
     private bool isWait = false;
     private bool isHidden = false;
 
-    void Start()
+
+    private void Start()
     {
         point.transform.position = new Vector3(transform.position.x, transform.position.y + 1.25f, transform.position.z);
     }
 
-    void Update()
+    private void Update()
     {
         if (!isWait)
         {
@@ -39,6 +41,7 @@ public class EnemyBeetle : Enemy
             StartCoroutine(Waiting());
         }
     }
+
 
     private IEnumerator Waiting()
     {

@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class EnemyBomber : EnemyAirPatrol
 {
+
     [SerializeField] private GameObject prefabBullet;
     [SerializeField] private float timeShoot = 4f;
+
     private List<GameObject> bullet;
     private byte bulletNumber = 0;
     
-    void Start()
+
+    private void Start()
     {
         bullet = new List<GameObject>();
 
@@ -22,7 +25,8 @@ public class EnemyBomber : EnemyAirPatrol
         StartCoroutine(Shooting());
     }
 
-    IEnumerator Shooting()
+
+    private IEnumerator Shooting()
     {
         yield return new WaitForSeconds(timeShoot);
 
