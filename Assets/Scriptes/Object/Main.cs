@@ -10,8 +10,8 @@ public class Main : MonoBehaviour
     #region CONSTANS
 
     private const string LVL = "COMPLETED_LEVELS";
-    private const string COINS = "Coins";
-    private const string GEMS = "Gems";
+    private const string COINS = "COINS";
+    private const string GEMS = "GEMS";
 
     #endregion
 
