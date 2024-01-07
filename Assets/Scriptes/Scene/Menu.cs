@@ -11,14 +11,18 @@ public class Menu : MonoBehaviour
 
     public Button[] Lvls;
 
+    private GamePreferences gp;
+
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey("Lvl"))
+        gp = new GamePreferences();
+
+        if (gp.IsLevel())
         {
             for (int i = 0; i < Lvls.Length; i++)
             {
-                if (i <= PlayerPrefs.GetInt("Lvl"))
+                if (i <= gp.Levels)
                 {
                     Lvls[i].interactable = true;
                 }
@@ -30,6 +34,12 @@ public class Menu : MonoBehaviour
         }
     }
 
+    private void Update() 
+    {
+        coinsText.text = gp.Coins.ToString();
+        gemsText.text = gp.Gems.ToString();
+    }
+
 
     public void OpenScene(int index)
     {
@@ -39,19 +49,5 @@ public class Menu : MonoBehaviour
     public void DeleteKeys()
     {
         PlayerPrefs.DeleteAll();
-    }
-
-
-    private void Update() 
-    {
-        if (PlayerPrefs.HasKey("Coins"))
-        {
-            coinsText.text = PlayerPrefs.GetInt("Coins").ToString();
-        }
-
-        if (PlayerPrefs.HasKey("Gems"))
-        {
-            gemsText.text = PlayerPrefs.GetInt("Gems").ToString();
-        }
     }
 }
