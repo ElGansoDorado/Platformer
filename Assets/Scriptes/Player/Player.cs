@@ -295,7 +295,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(NoHitBonus());
                 break;
 
-             case "GreenGem":
+            case "GreenGem":
                 gems++;
                 Destroy(other.gameObject);
                 StartCoroutine(SpeedBonus());
