@@ -9,6 +9,7 @@ public class Main : MonoBehaviour
 
     [SerializeField] private Player player;
     [SerializeField] private TMP_Text coinText;
+    [SerializeField] private TMP_Text timeText;
     [SerializeField] private Image[] hearts;
     [SerializeField] private Sprite isLife, nonLife;
     [SerializeField] private GameObject pausePanel;
@@ -16,6 +17,7 @@ public class Main : MonoBehaviour
     [SerializeField] private GameObject losePanel;
 
     private GamePreferences gp;
+    private float timer;
 
 
     private void Start()
@@ -38,6 +40,9 @@ public class Main : MonoBehaviour
                 hearts[i].sprite = nonLife;
             }
         }
+
+        timer += Time.deltaTime;
+        timeText.text = timer.ToString("F2").Replace(",", ":");
     }
     
     
