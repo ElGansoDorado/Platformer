@@ -1569,6 +1569,8 @@ MonoBehaviour:
   pausePanel: {fileID: 1205614956}
   winPanel: {fileID: 1124316285}
   losePanel: {fileID: 404911654}
+  timeWork: 2
+  countdown: 10
 --- !u!4 &524113763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 124896304822501085, guid: 95710eb4b3ccfdd49baa6c2fbad2e2b2, type: 3}

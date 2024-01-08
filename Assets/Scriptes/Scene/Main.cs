@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
-using System;
 
 public class Main : MonoBehaviour
 {
@@ -15,6 +14,8 @@ public class Main : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
+    [SerializeField] private TimeWork timeWork;
+    [SerializeField] private float countdown;
 
     private GamePreferences gp;
     private float timer;
@@ -23,6 +24,18 @@ public class Main : MonoBehaviour
     private void Start()
     {
         gp = new GamePreferences();
+
+        if (timeWork == TimeWork.Timer)
+        {
+            timer = countdown;
+        }
+
+        if (timeWork == TimeWork.None)
+        {
+            timeText.gameObject.SetActive(false);
+        }
+
+        Status(true);
     }
 
     private void Update()
@@ -41,8 +54,21 @@ public class Main : MonoBehaviour
             }
         }
 
-        timer += Time.deltaTime;
-        timeText.text = timer.ToString("F2").Replace(",", ":");
+        if (timeWork == TimeWork.Stopwatch)
+        {
+            timer += Time.deltaTime;
+            timeText.text = timer.ToString("F2").Replace(",", ":");
+        }
+        else if (timeWork == TimeWork.Timer)
+        {
+            timer -= Time.deltaTime;
+            timeText.text = timer.ToString("F2").Replace(",", ":");
+
+            if (timer <= 0f)
+            {
+                Lose();
+            }
+        }
     }
     
     
@@ -103,4 +129,11 @@ public class Main : MonoBehaviour
         gp.Coins = player.coins;
         gp.Gems = player.gems;
     }
+}
+
+public enum TimeWork
+{
+    None,
+    Stopwatch,
+    Timer
 }

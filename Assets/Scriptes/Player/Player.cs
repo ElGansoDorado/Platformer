@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask ground;
     [SerializeField] private GameObject blueGem, greenGem;
+    [SerializeField] private Image PlayerCountdown;
 
     public int curHp {get; private set;}
     public int coins {get; private set;} = 0;
@@ -35,6 +37,7 @@ public class Player : MonoBehaviour
 
     private int maxHp = 3;
     private int gemCount = 0;
+    private float hitTimer = 0;
 
     private bool isGround;
     private bool isClimbing = false;
@@ -326,6 +329,22 @@ public class Player : MonoBehaviour
                 LadderMov(0);
             }
         }
+
+        if (other.gameObject.CompareTag("PoisonousWater"))
+        {
+            hitTimer += Time.deltaTime;
+
+            if (hitTimer >= 3f)
+            {
+                hitTimer = 0f;
+                PlayerCountdown.fillAmount = 1f;
+                RecountHp(-1);
+            }
+            else
+            {
+                PlayerCountdown.fillAmount = 1 - (hitTimer / 3f);
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -334,6 +353,12 @@ public class Player : MonoBehaviour
         {
             isClimbing = false;
             rb.gravityScale = 1;
+        }
+
+        if (other.gameObject.CompareTag("PoisonousWater"))
+        {
+            hitTimer = 0f;
+            PlayerCountdown.fillAmount = 0f;
         }
     }
 
