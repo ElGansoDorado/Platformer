@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 3177807507663167332}
   - component: {fileID: 3177807507663167330}
   - component: {fileID: 3177807507663167331}
+  - component: {fileID: 8290402932064121339}
   m_Layer: 0
   m_Name: PoisonousWater
   m_TagString: Untagged
@@ -601,3 +602,17 @@ BuoyancyEffector2D:
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
+--- !u!114 &8290402932064121339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3177807507663167333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92feadbf73b25de49baeef508f5f6486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countdown: {fileID: 0}
+  timer: 3
