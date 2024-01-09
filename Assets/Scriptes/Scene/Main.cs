@@ -25,6 +25,9 @@ public class Main : MonoBehaviour
     {
         gp = new GamePreferences();
 
+        player.OnCoinsInfoEvent += OnCoinsInfo;
+        player.OnHeartInfoEvent += OnHeartInfo;
+
         if (timeWork == TimeWork.Timer)
         {
             timer = countdown;
@@ -40,29 +43,15 @@ public class Main : MonoBehaviour
 
     private void Update()
     {
-        coinText.text = player.coins.ToString();
-
-        for (int i = 0; i < hearts.Length; i++)
-        {
-            if (player.curHp > i)
-            {
-                hearts[i].sprite = isLife;
-            }
-            else
-            {
-                hearts[i].sprite = nonLife;
-            }
-        }
-
         if (timeWork == TimeWork.Stopwatch)
         {
             timer += Time.deltaTime;
-            timeText.text = timer.ToString("F2").Replace(",", ":");
+            timeText.text = ((int)timer / 60).ToString() + ":" + ((int)timer % 60).ToString("D2");
         }
         else if (timeWork == TimeWork.Timer)
         {
             timer -= Time.deltaTime;
-            timeText.text = timer.ToString("F2").Replace(",", ":");
+            timeText.text = ((int)timer / 60).ToString() + ":" + ((int)timer % 60).ToString("D2");
 
             if (timer <= 0f)
             {
@@ -128,6 +117,26 @@ public class Main : MonoBehaviour
         gp.Levels = SceneManager.GetActiveScene().buildIndex;
         gp.Coins = player.coins;
         gp.Gems = player.gems;
+    }
+
+    private void OnCoinsInfo()
+    {
+        coinText.text = player.coins.ToString();
+    }
+
+    private void OnHeartInfo()
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (player.curHp > i)
+            {
+                hearts[i].sprite = isLife;
+            }
+            else
+            {
+                hearts[i].sprite = nonLife;
+            }
+        }
     }
 }
 

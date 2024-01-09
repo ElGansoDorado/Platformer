@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
         ClimbIdle = 5,
         Climbing = 6
     }
-
+    
 
     [SerializeField] private float speed;
     [SerializeField] private float speedLadder;
@@ -24,8 +24,24 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask ground;
     [SerializeField] private GameObject blueGem, greenGem;
 
-    public int curHp {get; private set;}
-    public int coins {get; private set;} = 0;
+    public int curHp 
+    {
+        get => _curHp; 
+        private set
+        {
+            _curHp = value;
+            OnHeartInfoEvent?.Invoke();
+        }
+    }
+    public int coins 
+    {
+        get => _coins; 
+        private set
+        {
+            _coins = value;
+            OnCoinsInfoEvent?.Invoke();
+        }
+    }
     public int gems {get; private set;} = 0;
 
     public bool InWater = false;
@@ -34,7 +50,9 @@ public class Player : MonoBehaviour
     private SpriteRenderer sr;
     private Animator anim;
 
+    private int _curHp;
     private int maxHp = 3;
+    private int _coins = 0;
     private int gemCount = 0;
 
     private bool isGround;
@@ -43,6 +61,10 @@ public class Player : MonoBehaviour
     private bool canHit = true;
     private bool key;
     private bool canTP = true;
+
+
+    public event Action OnCoinsInfoEvent; 
+    public event Action OnHeartInfoEvent;
 
 
     private void Start()
