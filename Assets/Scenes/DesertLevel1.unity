@@ -1940,7 +1940,7 @@ MonoBehaviour:
   pausePanel: {fileID: 609898251}
   winPanel: {fileID: 1143301231}
   losePanel: {fileID: 2089836919}
-  timeWork: 0
+  timeWork: 1
   countdown: 0
 --- !u!4 &540604244 stripped
 Transform:

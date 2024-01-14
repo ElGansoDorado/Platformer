@@ -12,17 +12,7 @@ public class GamePreferences : MonoBehaviour
 
     public int Levels
     {
-        get
-        {
-            if (PlayerPrefs.HasKey(LVL))
-            {
-                return PlayerPrefs.GetInt(LVL);
-            }
-            else
-            {
-                return 0;
-            }
-        }
+        get => PlayerPrefs.HasKey(LVL) ? PlayerPrefs.GetInt(LVL) : 0;
         set
         {
             if (!IsLevel() || Levels < value)
@@ -34,17 +24,7 @@ public class GamePreferences : MonoBehaviour
 
     public int Coins
     {
-        get
-        {
-            if (PlayerPrefs.HasKey(COINS))
-            {
-                return PlayerPrefs.GetInt(COINS);
-            }
-            else
-            {
-                return 0;
-            }
-        }
+        get => PlayerPrefs.HasKey(COINS) ? PlayerPrefs.GetInt(COINS) : 0;
         set
         {
             if (IsCoins())
@@ -60,17 +40,7 @@ public class GamePreferences : MonoBehaviour
 
     public int Gems
     {
-        get
-        {
-            if (PlayerPrefs.HasKey(GEMS))
-            {
-                return PlayerPrefs.GetInt(GEMS);
-            }
-            else
-            {
-                return 0;
-            }
-        }
+        get => PlayerPrefs.HasKey(GEMS) ? PlayerPrefs.GetInt(GEMS) : 0;
         set
         {
             string gemsThisLvl = GEMS + SceneManager.GetActiveScene().buildIndex.ToString();
