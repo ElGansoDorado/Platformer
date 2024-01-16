@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.UIElements;
 
 public class MagicCarpet : MonoBehaviour
 {
+
     [SerializeField] private Transform left, right;
+
 
     private void OnTriggerStay2D(Collider2D other)
     {

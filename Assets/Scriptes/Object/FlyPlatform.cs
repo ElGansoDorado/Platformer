@@ -1,17 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FlyPlatform : MonoBehaviour
 {
+
     [SerializeField] private Transform[] points;
     [SerializeField] private float speed = 1f;
+
     private int i = 1;
 
-    void Start()
+
+    private void Start()
     {
         transform.position = new Vector3(points[0].position.x, points[0].position.y, transform.position.z);
     }
+
 
     private void OnCollisionStay2D(Collision2D other)
     {

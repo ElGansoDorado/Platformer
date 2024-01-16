@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
+    
     private float time;
+
 
     private void Update()
     {
@@ -18,6 +20,7 @@ public class Water : MonoBehaviour
             transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
+
 
     private void OnTriggerStay2D(Collider2D other)
     {

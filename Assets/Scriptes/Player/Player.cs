@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
     enum State
     {
         Idle = 1,
@@ -12,12 +14,7 @@ public class Player : MonoBehaviour
         ClimbIdle = 5,
         Climbing = 6
     }
-
-    public bool InWater = false;
-
-    private Rigidbody2D rb;
-    private SpriteRenderer sr;
-    private Animator anim;
+    
 
     [SerializeField] private float speed;
     [SerializeField] private float speedLadder;
@@ -26,42 +23,49 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask ground;
     [SerializeField] private GameObject blueGem, greenGem;
-    private bool isGround;
-    private bool isClimbing = false;
 
-    public int curHp {get; private set;}
-    public int coins {get; private set;} = 0;
-    public int gems {get; private set;} = 0;
-    private int maxHp = 3;
-    private int gemCount = 0;
-    
-
-    private bool isHit = false;
-    private bool canHit = true;
-
-    private bool key;
-    private bool canTP = true;
-    
-    public void RecountHp(int deltaHp)
+    public int curHp 
     {
-        curHp = ((curHp + deltaHp <= maxHp) && canHit) ? curHp + deltaHp : curHp;
-
-        if (deltaHp < 0 && canHit)
+        get => _curHp; 
+        private set
         {
-            StopCoroutine(OnHit());
-
-            canHit = false;
-            isHit = true;
-
-            StartCoroutine(OnHit());
-        }
-
-        if (curHp <= 0)
-        {
-            GetComponent<CapsuleCollider2D>().enabled = false;
-            Invoke("Lose", 1.5f);
+            _curHp = value;
+            OnHeartInfoEvent?.Invoke();
         }
     }
+    public int coins 
+    {
+        get => _coins; 
+        private set
+        {
+            _coins = value;
+            OnCoinsInfoEvent?.Invoke();
+        }
+    }
+    public int gems {get; private set;} = 0;
+
+    public bool InWater = false;
+
+    private Rigidbody2D rb;
+    private SpriteRenderer sr;
+    private Animator anim;
+
+    private int _curHp;
+    private int maxHp = 3;
+    private int _coins = 0;
+    private int gemCount = 0;
+
+    private bool isGround;
+    private bool isClimbing = false;
+    private bool isHit = false;
+    private bool canHit = true;
+    private bool key;
+    private bool canTP = true;
+
+
+    public event Action OnCoinsInfoEvent; 
+    public event Action OnHeartInfoEvent;
+
 
     private void Start()
     {
@@ -107,6 +111,29 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    public void RecountHp(int deltaHp)
+    {
+        curHp = ((curHp + deltaHp <= maxHp) && canHit) ? curHp + deltaHp : curHp;
+
+        if (deltaHp < 0 && canHit)
+        {
+            StopCoroutine(OnHit());
+
+            canHit = false;
+            isHit = true;
+
+            StartCoroutine(OnHit());
+        }
+
+        if (curHp <= 0)
+        {
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            Invoke("Lose", 1.5f);
+        }
+    }
+
+
     private void Run()
     {
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
@@ -140,6 +167,45 @@ public class Player : MonoBehaviour
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.3f, ground);
     }
 
+    private void Lose()
+    {
+        main.GetComponent<Main>().Lose();
+    }
+
+    private void LadderMov(float speed)
+    {
+        rb.velocity = new Vector2(0, speed);
+
+        if (speed == 0)
+        {
+            anim.SetInteger("State",(int) State.ClimbIdle);
+        }
+        else
+        {
+            anim.SetInteger("State",(int) State.Climbing);
+        }
+    }
+
+    private void CheckGems(GameObject obj)
+    {
+        if (gemCount == 1)
+        {
+            obj.transform.localPosition = new Vector3(0f, 0.45f, obj.transform.localPosition.z);
+        }
+        else if (gemCount == 2)
+        {
+            blueGem.transform.localPosition = new Vector3(-0.3f, 0.4f, blueGem.transform.localPosition.z);
+            greenGem.transform.localPosition = new Vector3(0.3f, 0.4f, greenGem.transform.localPosition.z);
+        }
+    }
+
+
+    private IEnumerator TPWait()
+    {
+        yield return new WaitForSeconds(1f);
+        canTP = true;
+    }
+
     private IEnumerator OnHit()
     {
         if (isHit)
@@ -166,10 +232,53 @@ public class Player : MonoBehaviour
         StartCoroutine(OnHit());
     }
 
-    private void Lose()
+    private IEnumerator NoHitBonus()
     {
-        main.GetComponent<Main>().Lose();
+        gemCount++;
+        blueGem.SetActive(true);
+        CheckGems(blueGem);
+        canHit = false;
+
+        blueGem.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(Invis(blueGem.GetComponent<SpriteRenderer>(), 0.02f));
+        yield return new WaitForSeconds(1f);
+
+        canHit = true;
+        CheckGems(blueGem);
+        blueGem.SetActive(false);
+        gemCount--;
     }
+
+    private IEnumerator SpeedBonus()
+    {
+        gemCount++;
+        greenGem.SetActive(true);
+        speed *= 2;
+        CheckGems(greenGem);
+        
+        greenGem.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(Invis(greenGem.GetComponent<SpriteRenderer>(), 0.02f));
+        yield return new WaitForSeconds(1f);
+        
+        CheckGems(greenGem);
+        speed /= 2;
+        greenGem.SetActive(false);
+        gemCount--;
+    }
+
+    private IEnumerator Invis(SpriteRenderer spr, float time)
+    {
+        spr.color = new Color(1f, 1f, 1f, spr.color.a - time * 2);
+        yield return new WaitForSeconds(time);
+
+        if (spr.color.a > 0)
+        {
+            StartCoroutine(Invis(spr, time));
+        }
+    }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -209,7 +318,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(NoHitBonus());
                 break;
 
-             case "GreenGem":
+            case "GreenGem":
                 gems++;
                 Destroy(other.gameObject);
                 StartCoroutine(SpeedBonus());
@@ -218,12 +327,6 @@ public class Player : MonoBehaviour
             default:
                 break;
         }   
-    }
-
-    private IEnumerator TPWait()
-    {
-        yield return new WaitForSeconds(1f);
-        canTP = true;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -254,80 +357,6 @@ public class Player : MonoBehaviour
         {
             isClimbing = false;
             rb.gravityScale = 1;
-        }
-    }
-
-    private void LadderMov(float speed)
-    {
-        rb.velocity = new Vector2(0, speed);
-
-        if (speed == 0)
-        {
-            anim.SetInteger("State",(int) State.ClimbIdle);
-        }
-        else
-        {
-            anim.SetInteger("State",(int) State.Climbing);
-        }
-    }
-
-    private IEnumerator NoHitBonus()
-    {
-        gemCount++;
-        blueGem.SetActive(true);
-        CheckGems(blueGem);
-        canHit = false;
-
-        blueGem.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(Invis(blueGem.GetComponent<SpriteRenderer>(), 0.02f));
-        yield return new WaitForSeconds(1f);
-
-        canHit = true;
-        CheckGems(blueGem);
-        blueGem.SetActive(false);
-        gemCount--;
-    }
-
-    private IEnumerator SpeedBonus()
-    {
-        gemCount++;
-        greenGem.SetActive(true);
-        speed *= 2;
-        CheckGems(greenGem);
-        
-        greenGem.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(Invis(greenGem.GetComponent<SpriteRenderer>(), 0.02f));
-        yield return new WaitForSeconds(1f);
-        
-        CheckGems(greenGem);
-        speed /= 2;
-        greenGem.SetActive(false);
-        gemCount--;
-    }
-
-    private void CheckGems(GameObject obj)
-    {
-        if (gemCount == 1)
-        {
-            obj.transform.localPosition = new Vector3(0f, 0.45f, obj.transform.localPosition.z);
-        }
-        else if (gemCount == 2)
-        {
-            blueGem.transform.localPosition = new Vector3(-0.3f, 0.4f, blueGem.transform.localPosition.z);
-            greenGem.transform.localPosition = new Vector3(0.3f, 0.4f, greenGem.transform.localPosition.z);
-        }
-    }
-
-    private IEnumerator Invis(SpriteRenderer spr, float time)
-    {
-        spr.color = new Color(1f, 1f, 1f, spr.color.a - time * 2);
-        yield return new WaitForSeconds(time);
-
-        if (spr.color.a > 0)
-        {
-            StartCoroutine(Invis(spr, time));
         }
     }
 
