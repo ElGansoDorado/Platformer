@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
 
+    [SerializeField] private PlayerInventory inventory;
     [SerializeField] private Player player;
     [SerializeField] private TMP_Text coinText;
     [SerializeField] private TMP_Text timeText;
@@ -25,7 +26,7 @@ public class Main : MonoBehaviour
     {
         gp = new GamePreferences();
 
-        player.OnCoinsInfoEvent += OnCoinsInfo;
+        inventory.OnCoinsInfoEvent += OnCoinsInfo;
         player.OnHeartInfoEvent += OnHeartInfo;
 
         if (timeWork == TimeWork.Timer)
@@ -115,13 +116,13 @@ public class Main : MonoBehaviour
     private void SaveData()
     {
         gp.Levels = SceneManager.GetActiveScene().buildIndex;
-        gp.Coins = player.coins;
-        gp.Gems = player.gems;
+        gp.Coins = inventory.coins;
+        gp.Gems = inventory.gems;
     }
 
     private void OnCoinsInfo()
     {
-        coinText.text = player.coins.ToString();
+        coinText.text = inventory.coins.ToString();
     }
 
     private void OnHeartInfo()
