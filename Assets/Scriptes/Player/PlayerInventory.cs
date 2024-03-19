@@ -1,11 +1,19 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerInventory : MonoBehaviour
 {
 
     [SerializeField] private GameObject blueGem, greenGem;
+
+    [SerializeField] private int hp = 0, bg = 0, gg = 0;
+    [SerializeField] private TMP_Text[] itemText;
+    [SerializeField] private Image[] itemImage;
+    [SerializeField] private Sprite is_hp, no_hp, is_bg, no_bg, is_gg, no_gg, is_key, no_key;
+
 
     public int coins 
     {
@@ -32,6 +40,81 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         player = GetComponent<Player>();
+    }
+
+
+    private void AddHp()
+    {
+        hp++;
+        itemImage[0].sprite = is_hp;
+        itemText[0].text = hp.ToString();
+    }
+
+    private void AddBg()
+    {
+        bg++;
+        gems++;
+        itemImage[1].sprite = is_bg;
+        itemText[1].text = bg.ToString();
+    }
+
+    private void AddGg()
+    {
+        gg++;
+        gems++;
+        itemImage[2].sprite = is_gg;
+        itemText[2].text = gg.ToString();
+    }
+
+    private void AddKey()
+    {
+        itemImage[3].sprite = is_key;
+        key = true;
+    }
+
+    public void UseHp()
+    {
+        if (hp > 0)
+        {
+            hp--;
+            player.RecountHp(1);
+            itemText[0].text = hp.ToString();
+
+            if (hp == 0)
+            {
+                itemImage[0].sprite = no_hp;
+            }
+        }
+    }
+
+    public void UseBg()
+    {
+        if (bg > 0)
+        {
+            bg--;
+            StartCoroutine(NoHitBonus());
+            itemText[1].text = bg.ToString();
+
+            if (bg == 0)
+            {
+                itemImage[1].sprite = no_bg;
+            }
+        }
+    }
+
+    public void UseGg()
+    {
+        if (gg > 0)
+        {
+            gg--;
+            StartCoroutine(SpeedBonus());
+            itemText[2].text = gg.ToString();
+
+            if (gg == 0)
+            {
+                itemImage[2].sprite = no_gg;
+            }
+        }
     }
 
 
@@ -108,8 +191,8 @@ public class PlayerInventory : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Key":
+                AddKey();
                 Destroy(other.gameObject);
-                key = true;
                 break;
 
             case "Door":
@@ -131,20 +214,18 @@ public class PlayerInventory : MonoBehaviour
                 break;
 
             case "Heart":
+                AddHp();
                 Destroy(other.gameObject);
-                player.RecountHp(1);
                 break;
 
             case "BlueGem":
-                gems++;
+                AddBg();
                 Destroy(other.gameObject);
-                StartCoroutine(NoHitBonus());
                 break;
 
             case "GreenGem":
-                gems++;
+                AddGg();
                 Destroy(other.gameObject);
-                StartCoroutine(SpeedBonus());
                 break;
 
             default:
