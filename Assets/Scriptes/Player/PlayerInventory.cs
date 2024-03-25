@@ -27,6 +27,7 @@ public class PlayerInventory : MonoBehaviour
     public int gems {get; private set;} = 0;
 
     private Player player;
+    private GamePreferences gp;
     private int _coins = 0;
     private int gemCount = 0;
 
@@ -40,6 +41,32 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         player = GetComponent<Player>();
+        gp = new GamePreferences();
+
+        hp = gp.Hearts;
+        bg = gp.BlueGems;
+        gg = gp.GreenGems;
+
+        if (gp.IsHeart())
+        {
+            hp = gp.Hearts;
+            itemImage[0].sprite = is_hp;
+            itemText[0].text = hp.ToString();
+        }
+
+        if (gp.IsBlueGem())
+        {
+            bg = gp.BlueGems;
+            itemImage[1].sprite = is_bg;
+            itemText[1].text = bg.ToString();
+        }
+
+        if (gp.IsGreenGem())
+        {
+            gg = gp.GreenGems;
+            itemImage[2].sprite = is_gg;
+            itemText[2].text = gg.ToString();
+        }
     }
 
 
