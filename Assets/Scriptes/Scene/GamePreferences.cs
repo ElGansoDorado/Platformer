@@ -8,6 +8,9 @@ public class GamePreferences : MonoBehaviour
     private const string LVL = "COMPLETED_LEVELS";
     private const string COINS = "COINS";
     private const string GEMS = "GEMS";
+    private const string HEART = "CONSUMABLEHEART";
+    private const string BLUE_GEM = "CONSUMABLEBLUEGEM";
+    private const string GREEN_GEM = "CONSUMABLEGREENGEM";
 
 
     public int Levels
@@ -69,11 +72,34 @@ public class GamePreferences : MonoBehaviour
         }
     }
 
+    public int Hearts
+    {
+        get => PlayerPrefs.HasKey(HEART) ? PlayerPrefs.GetInt(HEART) : 0;
+        set => PlayerPrefs.SetInt(HEART, value);
+    }
+
+    public int BlueGems
+    {
+        get => PlayerPrefs.HasKey(BLUE_GEM) ? PlayerPrefs.GetInt(BLUE_GEM) : 0;
+        set => PlayerPrefs.SetInt(BLUE_GEM, value);
+    }
+
+    public int GreenGems
+    {
+        get => PlayerPrefs.HasKey(GREEN_GEM) ? PlayerPrefs.GetInt(GREEN_GEM) : 0;
+        set => PlayerPrefs.SetInt(GREEN_GEM, value);
+    }
 
     public bool IsLevel() => PlayerPrefs.HasKey(LVL);
 
     public bool IsCoins() => PlayerPrefs.HasKey(COINS);
 
     public bool IsGems() => PlayerPrefs.HasKey(GEMS);
+
+    public bool IsHeart() => PlayerPrefs.HasKey(HEART);
+
+    public bool IsBlueGem() => PlayerPrefs.HasKey(BLUE_GEM);
+
+    public bool IsGreenGem() => PlayerPrefs.HasKey(GREEN_GEM);
     
 }

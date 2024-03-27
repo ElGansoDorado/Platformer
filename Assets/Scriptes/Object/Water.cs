@@ -26,7 +26,7 @@ public class Water : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<Player>().InWater = true;
+            other.gameObject.GetComponent<PlayerMove>().InWater = true;
         }    
     }
 
@@ -34,7 +34,7 @@ public class Water : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<Player>().InWater = false;
+            other.gameObject.GetComponent<PlayerMove>().InWater = false;
         }
     }
 }

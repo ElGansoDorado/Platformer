@@ -50,4 +50,25 @@ public class Menu : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
     }
+
+    public void BuyProduct(int cost)
+    {
+        if (gp.Coins >= cost / 10)
+        {
+            ListProduct(cost % 10);
+            gp.Coins = -cost / 10;
+        }
+    }
+
+
+    private void ListProduct(int id)
+    {
+        switch (id)
+        {
+            case 1: gp.Hearts += 1; break;
+            case 2: gp.BlueGems += 1; break;
+            case 3: gp.GreenGems += 1; break;
+            default: break;
+        }
+    }
 }
