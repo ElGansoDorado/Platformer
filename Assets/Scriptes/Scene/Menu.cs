@@ -60,13 +60,14 @@ public class Menu : MonoBehaviour
         }
     }
 
+
     private void ListProduct(int id)
     {
         switch (id)
         {
-            case 1: gp.Hearts = 1; break;
-            case 2: gp.BlueGems = 1; break;
-            case 3: gp.GreenGems = 1; break;
+            case 1: gp.Hearts += 1; break;
+            case 2: gp.BlueGems += 1; break;
+            case 3: gp.GreenGems += 1; break;
             default: break;
         }
     }

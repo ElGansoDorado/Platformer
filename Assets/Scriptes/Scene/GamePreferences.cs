@@ -77,14 +77,7 @@ public class GamePreferences : MonoBehaviour
         get => PlayerPrefs.HasKey(HEART) ? PlayerPrefs.GetInt(HEART) : 0;
         set
         {
-            if (IsHeart())
-            {
-                PlayerPrefs.SetInt(HEART, Hearts + value);
-            }
-            else
-            {
-                PlayerPrefs.SetInt(HEART, value);
-            }
+            PlayerPrefs.SetInt(HEART, value);
         }
     }
 
@@ -93,14 +86,7 @@ public class GamePreferences : MonoBehaviour
         get => PlayerPrefs.HasKey(BLUEGEM) ? PlayerPrefs.GetInt(BLUEGEM) : 0;
         set
         {
-            if (IsBlueGem())
-            {
-                PlayerPrefs.SetInt(BLUEGEM, BlueGems + value);
-            }
-            else
-            {
-                PlayerPrefs.SetInt(BLUEGEM, value);
-            }
+            PlayerPrefs.SetInt(BLUEGEM, value);
         }
     }
 
@@ -109,14 +95,7 @@ public class GamePreferences : MonoBehaviour
         get => PlayerPrefs.HasKey(GREENGEM) ? PlayerPrefs.GetInt(GREENGEM) : 0;
         set
         {
-            if (IsBlueGem())
-            {
-                PlayerPrefs.SetInt(GREENGEM, BlueGems + value);
-            }
-            else
-            {
-                PlayerPrefs.SetInt(GREENGEM, value);
-            }
+            PlayerPrefs.SetInt(GREENGEM, value);
         }
     }
 

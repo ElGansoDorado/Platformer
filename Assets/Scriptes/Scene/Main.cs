@@ -64,6 +64,7 @@ public class Main : MonoBehaviour
     
     public void ReloadLevel()
     {
+        SaveInventory();
         Status(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -90,12 +91,14 @@ public class Main : MonoBehaviour
 
     public void Lose()
     {
+        SaveInventory();
         Status(false);
         losePanel.SetActive(true);
     }
 
     public void MenuLevel()
     {
+        SaveInventory();
         Status(true);
         SceneManager.LoadScene("Menu");
     }
@@ -118,6 +121,8 @@ public class Main : MonoBehaviour
         gp.Levels = SceneManager.GetActiveScene().buildIndex;
         gp.Coins = inventory.coins;
         gp.Gems = inventory.gems;
+
+        SaveInventory();
     }
 
     private void OnCoinsInfo()
@@ -137,6 +142,24 @@ public class Main : MonoBehaviour
             {
                 hearts[i].sprite = nonLife;
             }
+        }
+    }
+
+    private void SaveInventory()
+    {
+        if (inventory.hp < gp.Hearts)
+        {
+            gp.Hearts = inventory.hp;
+        }
+
+        if (inventory.bg < gp.BlueGems)
+        {
+            gp.BlueGems = inventory.bg;
+        }
+
+        if (inventory.gg < gp.GreenGems)
+        {
+            gp.GreenGems = inventory.gg;
         }
     }
 }

@@ -9,7 +9,6 @@ public class PlayerInventory : MonoBehaviour
 
     [SerializeField] private GameObject blueGem, greenGem;
 
-    [SerializeField] private int hp = 0, bg = 0, gg = 0;
     [SerializeField] private TMP_Text[] itemText;
     [SerializeField] private Image[] itemImage;
     [SerializeField] private Sprite is_hp, no_hp, is_bg, no_bg, is_gg, no_gg, is_key, no_key;
@@ -24,6 +23,7 @@ public class PlayerInventory : MonoBehaviour
             OnCoinsInfoEvent?.Invoke();
         }
     }
+    public int hp = 0, bg = 0, gg = 0;
     public int gems {get; private set;} = 0;
 
     private Player player;
@@ -47,21 +47,21 @@ public class PlayerInventory : MonoBehaviour
         bg = gp.BlueGems;
         gg = gp.GreenGems;
 
-        if (gp.IsHeart())
+        if (gp.Hearts > 0)
         {
             hp = gp.Hearts;
             itemImage[0].sprite = is_hp;
             itemText[0].text = hp.ToString();
         }
 
-        if (gp.IsBlueGem())
+        if (gp.BlueGems > 0)
         {
             bg = gp.BlueGems;
             itemImage[1].sprite = is_bg;
             itemText[1].text = bg.ToString();
         }
 
-        if (gp.IsGreenGem())
+        if (gp.GreenGems > 0)
         {
             gg = gp.GreenGems;
             itemImage[2].sprite = is_gg;
