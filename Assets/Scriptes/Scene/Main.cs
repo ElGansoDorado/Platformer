@@ -119,22 +119,22 @@ public class Main : MonoBehaviour
     private void SaveData()
     {
         gp.Levels = SceneManager.GetActiveScene().buildIndex;
-        gp.Coins = inventory.coins;
-        gp.Gems = inventory.gems;
+        gp.Coins = inventory.Coins;
+        gp.Gems = inventory.Gems;
 
         SaveInventory();
     }
 
     private void OnCoinsInfo()
     {
-        coinText.text = inventory.coins.ToString();
+        coinText.text = inventory.Coins.ToString();
     }
 
     private void OnHeartInfo()
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            if (player.curHp > i)
+            if (player.CurHp > i)
             {
                 hearts[i].sprite = isLife;
             }
@@ -147,19 +147,19 @@ public class Main : MonoBehaviour
 
     private void SaveInventory()
     {
-        if (inventory.hp < gp.Hearts)
+        if (inventory.Hp < gp.Hearts)
         {
-            gp.Hearts = inventory.hp;
+            gp.Hearts = inventory.Hp;
         }
 
-        if (inventory.bg < gp.BlueGems)
+        if (inventory.Bg < gp.BlueGems)
         {
-            gp.BlueGems = inventory.bg;
+            gp.BlueGems = inventory.Bg;
         }
 
-        if (inventory.gg < gp.GreenGems)
+        if (inventory.Gg < gp.GreenGems)
         {
-            gp.GreenGems = inventory.gg;
+            gp.GreenGems = inventory.Gg;
         }
     }
 }

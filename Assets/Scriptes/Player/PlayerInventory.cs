@@ -14,21 +14,21 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private Sprite is_hp, no_hp, is_bg, no_bg, is_gg, no_gg, is_key, no_key;
 
 
-    public int coins 
+    public int Coins 
     {
-        get => _coins; 
+        get => coins; 
         private set
         {
-            _coins = value;
+            coins = value;
             OnCoinsInfoEvent?.Invoke();
         }
     }
-    public int hp = 0, bg = 0, gg = 0;
-    public int gems {get; private set;} = 0;
+    public int Hp = 0, Bg = 0, Gg = 0;
+    public int Gems {get; private set;} = 0;
 
     private Player player;
     private GamePreferences gp;
-    private int _coins = 0;
+    private int coins = 0;
     private int gemCount = 0;
 
     private bool key;
@@ -43,54 +43,54 @@ public class PlayerInventory : MonoBehaviour
         player = GetComponent<Player>();
         gp = new GamePreferences();
 
-        hp = gp.Hearts;
-        bg = gp.BlueGems;
-        gg = gp.GreenGems;
+        Hp = gp.Hearts;
+        Bg = gp.BlueGems;
+        Gg = gp.GreenGems;
 
         if (gp.Hearts > 0)
         {
-            hp = gp.Hearts;
+            Hp = gp.Hearts;
             itemImage[0].sprite = is_hp;
-            itemText[0].text = hp.ToString();
+            itemText[0].text = Hp.ToString();
         }
 
         if (gp.BlueGems > 0)
         {
-            bg = gp.BlueGems;
+            Bg = gp.BlueGems;
             itemImage[1].sprite = is_bg;
-            itemText[1].text = bg.ToString();
+            itemText[1].text = Bg.ToString();
         }
 
         if (gp.GreenGems > 0)
         {
-            gg = gp.GreenGems;
+            Gg = gp.GreenGems;
             itemImage[2].sprite = is_gg;
-            itemText[2].text = gg.ToString();
+            itemText[2].text = Gg.ToString();
         }
     }
 
 
     private void AddHp()
     {
-        hp++;
+        Hp++;
         itemImage[0].sprite = is_hp;
-        itemText[0].text = hp.ToString();
+        itemText[0].text = Hp.ToString();
     }
 
     private void AddBg()
     {
-        bg++;
-        gems++;
+        Bg++;
+        Gems++;
         itemImage[1].sprite = is_bg;
-        itemText[1].text = bg.ToString();
+        itemText[1].text = Bg.ToString();
     }
 
     private void AddGg()
     {
-        gg++;
-        gems++;
+        Gg++;
+        Gems++;
         itemImage[2].sprite = is_gg;
-        itemText[2].text = gg.ToString();
+        itemText[2].text = Gg.ToString();
     }
 
     private void AddKey()
@@ -101,13 +101,13 @@ public class PlayerInventory : MonoBehaviour
 
     public void UseHp()
     {
-        if (hp > 0)
+        if (Hp > 0)
         {
-            hp--;
+            Hp--;
             player.RecountHp(1);
-            itemText[0].text = hp.ToString();
+            itemText[0].text = Hp.ToString();
 
-            if (hp == 0)
+            if (Hp == 0)
             {
                 itemImage[0].sprite = no_hp;
             }
@@ -116,13 +116,13 @@ public class PlayerInventory : MonoBehaviour
 
     public void UseBg()
     {
-        if (bg > 0)
+        if (Bg > 0)
         {
-            bg--;
+            Bg--;
             StartCoroutine(NoHitBonus());
-            itemText[1].text = bg.ToString();
+            itemText[1].text = Bg.ToString();
 
-            if (bg == 0)
+            if (Bg == 0)
             {
                 itemImage[1].sprite = no_bg;
             }
@@ -131,13 +131,13 @@ public class PlayerInventory : MonoBehaviour
 
     public void UseGg()
     {
-        if (gg > 0)
+        if (Gg > 0)
         {
-            gg--;
+            Gg--;
             StartCoroutine(SpeedBonus());
-            itemText[2].text = gg.ToString();
+            itemText[2].text = Gg.ToString();
 
-            if (gg == 0)
+            if (Gg == 0)
             {
                 itemImage[2].sprite = no_gg;
             }
@@ -170,14 +170,14 @@ public class PlayerInventory : MonoBehaviour
         gemCount++;
         blueGem.SetActive(true);
         CheckGems(blueGem);
-        player.canHit = false;
+        player.CanHit = false;
 
         blueGem.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         yield return new WaitForSeconds(5f);
         StartCoroutine(Invis(blueGem.GetComponent<SpriteRenderer>(), 0.02f));
         yield return new WaitForSeconds(1f);
 
-        player.canHit = true;
+        player.CanHit = true;
         CheckGems(blueGem);
         blueGem.SetActive(false);
         gemCount--;

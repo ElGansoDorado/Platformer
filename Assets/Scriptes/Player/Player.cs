@@ -21,12 +21,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpHeight;
     [SerializeField] private Main main;
 
-    public int curHp 
+    public int CurHp 
     {
-        get => _curHp; 
+        get => curHp; 
         private set
         {
-            _curHp = value;
+            curHp = value;
             OnHeartInfoEvent?.Invoke();
         }
     }
@@ -46,15 +46,15 @@ public class Player : MonoBehaviour
         get => jumpHeight; 
         set => jumpHeight = value;
     }
+    public bool CanHit = true;
 
     private SpriteRenderer sr;
     private PlayerMove move;
 
-    private int _curHp;
+    private int curHp;
     private int maxHp = 3;
 
     private bool isHit = false;
-    public bool canHit = true;
 
 
     public event Action OnHeartInfoEvent;
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        curHp = maxHp;
+        CurHp = maxHp;
 
         move = GetComponent<PlayerMove>();
     }
@@ -81,19 +81,19 @@ public class Player : MonoBehaviour
 
     public void RecountHp(int deltaHp)
     {
-        curHp = ((curHp + deltaHp <= maxHp) && canHit) ? curHp + deltaHp : curHp;
+        CurHp = ((CurHp + deltaHp <= maxHp) && CanHit) ? CurHp + deltaHp : CurHp;
 
-        if (deltaHp < 0 && canHit)
+        if (deltaHp < 0 && CanHit)
         {
             StopCoroutine(OnHit());
 
-            canHit = false;
+            CanHit = false;
             isHit = true;
 
             StartCoroutine(OnHit());
         }
 
-        if (curHp <= 0)
+        if (CurHp <= 0)
         {
             GetComponent<CapsuleCollider2D>().enabled = false;
             Invoke("Lose", 1.5f);
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
         if (sr.color.g >= 1f)
         {
             StopCoroutine(OnHit());
-            canHit = true;
+            CanHit = true;
         }
 
         if (sr.color.g <= 0)
