@@ -8,9 +8,9 @@ public class GamePreferences : MonoBehaviour
     private const string LVL = "COMPLETED_LEVELS";
     private const string COINS = "COINS";
     private const string GEMS = "GEMS";
-    private const string HEART = "CONSUMABLEHEART";
-    private const string BLUE_GEM = "CONSUMABLEBLUEGEM";
-    private const string GREEN_GEM = "CONSUMABLEGREENGEM";
+    private const string HEART = "CONSUMABLE_HEART";
+    private const string BLUE_GEM = "CONSUMABLE_BLUE_GEM";
+    private const string GREEN_GEM = "CONSUMABLE_GREEN_GEM";
 
 
     public int Levels
