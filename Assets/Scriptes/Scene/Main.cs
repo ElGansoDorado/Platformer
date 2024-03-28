@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
 
+    [SerializeField] private PlayerInventory inventory;
     [SerializeField] private Player player;
     [SerializeField] private TMP_Text coinText;
     [SerializeField] private TMP_Text timeText;
@@ -25,7 +26,7 @@ public class Main : MonoBehaviour
     {
         gp = new GamePreferences();
 
-        player.OnCoinsInfoEvent += OnCoinsInfo;
+        inventory.OnCoinsInfoEvent += OnCoinsInfo;
         player.OnHeartInfoEvent += OnHeartInfo;
 
         if (timeWork == TimeWork.Timer)
@@ -63,6 +64,7 @@ public class Main : MonoBehaviour
     
     public void ReloadLevel()
     {
+        SaveInventory();
         Status(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -89,12 +91,14 @@ public class Main : MonoBehaviour
 
     public void Lose()
     {
+        SaveInventory();
         Status(false);
         losePanel.SetActive(true);
     }
 
     public void MenuLevel()
     {
+        SaveInventory();
         Status(true);
         SceneManager.LoadScene("Menu");
     }
@@ -115,20 +119,22 @@ public class Main : MonoBehaviour
     private void SaveData()
     {
         gp.Levels = SceneManager.GetActiveScene().buildIndex;
-        gp.Coins = player.coins;
-        gp.Gems = player.gems;
+        gp.Coins = inventory.Coins;
+        gp.Gems = inventory.Gems;
+
+        SaveInventory();
     }
 
     private void OnCoinsInfo()
     {
-        coinText.text = player.coins.ToString();
+        coinText.text = inventory.Coins.ToString();
     }
 
     private void OnHeartInfo()
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            if (player.curHp > i)
+            if (player.CurHp > i)
             {
                 hearts[i].sprite = isLife;
             }
@@ -136,6 +142,24 @@ public class Main : MonoBehaviour
             {
                 hearts[i].sprite = nonLife;
             }
+        }
+    }
+
+    private void SaveInventory()
+    {
+        if (inventory.Hp < gp.Hearts)
+        {
+            gp.Hearts = inventory.Hp;
+        }
+
+        if (inventory.Bg < gp.BlueGems)
+        {
+            gp.BlueGems = inventory.Bg;
+        }
+
+        if (inventory.Gg < gp.GreenGems)
+        {
+            gp.GreenGems = inventory.Gg;
         }
     }
 }
