@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask ground;
+    [SerializeField] private SoundEffector soundEffector;
 
     public bool InWater = false;
 
@@ -73,6 +74,7 @@ public class PlayerMove : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                soundEffector.PlayJumpSound();
                 rb.AddForce(transform.up * player.JumpHeight, ForceMode2D.Impulse);
             }
         }

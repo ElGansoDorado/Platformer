@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soundeffector : MonoBehaviour
+public class SoundEffector : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public AudioClip jumpSound, coinSound, winSound, loseSound;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip jumpSound, coinSound, winSound, loseSound;
 
 
     public void PlayJumpSound() => audioSource.PlayOneShot(jumpSound);

@@ -2122,6 +2122,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
+  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2238,6 +2239,24 @@ MonoBehaviour:
   losePanel: {fileID: 404911654}
   timeWork: 1
   countdown: 0
+  soundEffector: {fileID: 519420035}
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873a0bda21261f241983c24a0a7d8079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 879061128}
+  jumpSound: {fileID: 8300000, guid: 196dafccff77b3046af0f6e09b94ec16, type: 3}
+  coinSound: {fileID: 8300000, guid: eea1aee4d21945b478027cb8d7c7cde6, type: 3}
+  winSound: {fileID: 8300000, guid: 2bdcd46bce9722e4a9cf4aeff4c6c9b3, type: 3}
+  loseSound: {fileID: 8300000, guid: 81ee7a450ff563940bb5ef5893f42eff, type: 3}
 --- !u!4 &524113763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 124896304822501085, guid: 95710eb4b3ccfdd49baa6c2fbad2e2b2, type: 3}
@@ -7162,6 +7181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blueGem: {fileID: 554313838}
   greenGem: {fileID: 1973618259}
+  soundEffector: {fileID: 519420035}
   itemText:
   - {fileID: 433463959}
   - {fileID: 510348440}
@@ -7198,6 +7218,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  soundEffector: {fileID: 519420035}
   InWater: 0
 --- !u!1 &1701066368
 GameObject:

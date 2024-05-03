@@ -17,6 +17,7 @@ public class Main : MonoBehaviour
     [SerializeField] private GameObject losePanel;
     [SerializeField] private TimeWork timeWork;
     [SerializeField] private float countdown;
+    [SerializeField] private SoundEffector soundEffector;
 
     private GamePreferences gp;
     private float timer;
@@ -83,6 +84,8 @@ public class Main : MonoBehaviour
 
     public void Win()
     {
+        soundEffector.PlayWinSound();
+
         Status(false);
         winPanel.SetActive(true);
         
@@ -91,6 +94,8 @@ public class Main : MonoBehaviour
 
     public void Lose()
     {
+        soundEffector.PlayLoseSound();
+
         SaveInventory();
         Status(false);
         losePanel.SetActive(true);
