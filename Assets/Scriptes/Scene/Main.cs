@@ -18,6 +18,7 @@ public class Main : MonoBehaviour
     [SerializeField] private TimeWork timeWork;
     [SerializeField] private float countdown;
     [SerializeField] private SoundEffector soundEffector;
+    [SerializeField] private AudioSource MusicSource, SoundSource;
 
     private GamePreferences gp;
     private float timer;
@@ -29,6 +30,9 @@ public class Main : MonoBehaviour
 
         inventory.OnCoinsInfoEvent += OnCoinsInfo;
         player.OnHeartInfoEvent += OnHeartInfo;
+
+        MusicSource.volume = (float)gp.Music / 9;
+        SoundSource.volume = (float)gp.Audio / 9;
 
         if (timeWork == TimeWork.Timer)
         {

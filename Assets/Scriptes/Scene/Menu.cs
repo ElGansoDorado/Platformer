@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
 
     [SerializeField] TMP_Text coinsText; 
     [SerializeField] TMP_Text gemsText; 
+    [SerializeField] Slider MusicSlider, AudioSlider;
 
     public Button[] Lvls;
 
@@ -32,6 +33,15 @@ public class Menu : MonoBehaviour
                 }
             }
         }
+
+        MusicSlider.value = gp.Music;
+        AudioSlider.value = gp.Audio;
+    }
+
+    private void FixedUpdate()
+    {
+        gp.Music = (int)MusicSlider.value;
+        gp.Audio = (int)AudioSlider.value;
     }
 
     private void Update() 

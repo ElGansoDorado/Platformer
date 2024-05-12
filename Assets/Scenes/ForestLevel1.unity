@@ -2240,6 +2240,8 @@ MonoBehaviour:
   timeWork: 1
   countdown: 0
   soundEffector: {fileID: 519420035}
+  MusicSource: {fileID: 2012011703}
+  SoundSource: {fileID: 879061128}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0
