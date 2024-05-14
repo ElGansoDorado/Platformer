@@ -8,6 +8,7 @@ public class PlayerInventory : MonoBehaviour
 {
 
     [SerializeField] private GameObject blueGem, greenGem;
+    [SerializeField] private SoundEffector soundEffector;
 
     [SerializeField] private TMP_Text[] itemText;
     [SerializeField] private Image[] itemImage;
@@ -72,6 +73,8 @@ public class PlayerInventory : MonoBehaviour
 
     private void AddHp()
     {
+        soundEffector.PlayCoinSound();
+
         Hp++;
         itemImage[0].sprite = is_hp;
         itemText[0].text = Hp.ToString();
@@ -79,6 +82,8 @@ public class PlayerInventory : MonoBehaviour
 
     private void AddBg()
     {
+        soundEffector.PlayCoinSound();
+
         Bg++;
         Gems++;
         itemImage[1].sprite = is_bg;
@@ -87,6 +92,8 @@ public class PlayerInventory : MonoBehaviour
 
     private void AddGg()
     {
+        soundEffector.PlayCoinSound();
+
         Gg++;
         Gems++;
         itemImage[2].sprite = is_gg;
@@ -95,6 +102,8 @@ public class PlayerInventory : MonoBehaviour
 
     private void AddKey()
     {
+        soundEffector.PlayCoinSound();
+
         itemImage[3].sprite = is_key;
         key = true;
     }
@@ -236,6 +245,8 @@ public class PlayerInventory : MonoBehaviour
                 break;
 
             case "Coin":
+                soundEffector.PlayCoinSound();
+
                 Destroy(other.gameObject);
                 coins++;
                 break;

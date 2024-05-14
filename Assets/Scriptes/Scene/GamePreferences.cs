@@ -11,6 +11,8 @@ public class GamePreferences : MonoBehaviour
     private const string HEART = "CONSUMABLE_HEART";
     private const string BLUE_GEM = "CONSUMABLE_BLUE_GEM";
     private const string GREEN_GEM = "CONSUMABLE_GREEN_GEM";
+    private const string MUSIC_VOLUME = "MUSIC_VOLUME";
+    private const string AUDIO_VOLUME = "AUDIO_VOLUME";
 
 
     public int Levels
@@ -88,6 +90,18 @@ public class GamePreferences : MonoBehaviour
     {
         get => PlayerPrefs.HasKey(GREEN_GEM) ? PlayerPrefs.GetInt(GREEN_GEM) : 0;
         set => PlayerPrefs.SetInt(GREEN_GEM, value);
+    }
+
+    public int Music
+    {
+        get => PlayerPrefs.HasKey(MUSIC_VOLUME) ? PlayerPrefs.GetInt(MUSIC_VOLUME) : 3;
+        set => PlayerPrefs.SetInt(MUSIC_VOLUME, value);
+    }
+
+    public int Audio
+    {
+        get => PlayerPrefs.HasKey(AUDIO_VOLUME) ? PlayerPrefs.GetInt(AUDIO_VOLUME) : 3;
+        set => PlayerPrefs.SetInt(AUDIO_VOLUME, value);
     }
 
     public bool IsLevel() => PlayerPrefs.HasKey(LVL);

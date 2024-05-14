@@ -17,6 +17,8 @@ public class Main : MonoBehaviour
     [SerializeField] private GameObject losePanel;
     [SerializeField] private TimeWork timeWork;
     [SerializeField] private float countdown;
+    [SerializeField] private SoundEffector soundEffector;
+    [SerializeField] private AudioSource MusicSource, SoundSource;
 
     private GamePreferences gp;
     private float timer;
@@ -28,6 +30,9 @@ public class Main : MonoBehaviour
 
         inventory.OnCoinsInfoEvent += OnCoinsInfo;
         player.OnHeartInfoEvent += OnHeartInfo;
+
+        MusicSource.volume = (float)gp.Music / 9;
+        SoundSource.volume = (float)gp.Audio / 9;
 
         if (timeWork == TimeWork.Timer)
         {
@@ -83,6 +88,8 @@ public class Main : MonoBehaviour
 
     public void Win()
     {
+        soundEffector.PlayWinSound();
+
         Status(false);
         winPanel.SetActive(true);
         
@@ -91,6 +98,8 @@ public class Main : MonoBehaviour
 
     public void Lose()
     {
+        soundEffector.PlayLoseSound();
+
         SaveInventory();
         Status(false);
         losePanel.SetActive(true);
